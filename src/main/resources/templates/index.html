@@ -1,533 +1,331 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <!-- basic -->
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <!-- mobile metas -->
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-      <!-- site metas -->
-      <title>Beautiflie</title>
-      <meta name="keywords" content="">
-      <meta name="description" content="">
-      <meta name="author" content="">
-      <!-- bootstrap css -->
-      <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-      <!-- style css -->
-      <link rel="stylesheet" type="text/css" href="css/style.css">
-      <!-- Responsive-->
-      <link rel="stylesheet" href="css/responsive.css">
-      <!-- fevicon -->
-      <link rel="icon" href="images/fevicon.png" type="image/gif" />
-      <!-- Scrollbar Custom CSS -->
-      <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
-      <!-- Tweaks for older IEs-->
-      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-      <!-- fonts -->
-      <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Open+Sans:400,700&display=swap&subset=latin-ext" rel="stylesheet">
-      <!-- owl stylesheets --> 
-      <link rel="stylesheet" href="css/owl.carousel.min.css">
-      <link rel="stylesheet" href="css/owl.theme.default.min.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
-      <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-   </head>
-   <body>
-      <!-- header section start -->
-      <div class="header_section">
-         <div class="container-fluid">
-            <nav class="navbar navbar-light bg-light justify-content-between">
-               <div id="mySidenav" class="sidenav">
-                  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                  <a href="index.html">Home</a>
-                  <a href="products.html">Products</a>
-                  <a href="about.html">About</a>
-                  <a href="client.html">Client</a>
-                  <a href="contact.html">Contact</a>
+
+<head>
+   <!-- basic -->
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <!-- mobile metas -->
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+   <!-- site metas -->
+   <title>Makeup</title>
+   <meta name="keywords" content="">
+   <meta name="description" content="">
+   <meta name="author" content="">
+   <!-- bootstrap css -->
+   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+   <!-- style css -->
+   <link rel="stylesheet" type="text/css" href="css/style.css">
+   <!-- Responsive-->
+   <link rel="stylesheet" href="css/responsive.css">
+   <!-- fevicon -->
+   <link rel="icon" href="images/fevicon.png" type="image/gif" />
+   <!-- Scrollbar Custom CSS -->
+   <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+   <!-- Tweaks for older IEs-->
+   <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+   <!-- fonts -->
+   <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Open+Sans:400,700&display=swap&subset=latin-ext"
+      rel="stylesheet">
+   <!-- owl stylesheets -->
+   <link rel="stylesheet" href="css/owl.carousel.min.css">
+   <link rel="stylesheet" href="css/owl.theme.default.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
+      media="screen">
+   <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+   <!-- header section start -->
+   <div class="header_section">
+      <div class="container-fluid">
+         <nav class="navbar navbar-light bg-light justify-content-between">
+            <div id="mySidenav" class="sidenav">
+               <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+               <a href="index.html">Home</a>
+               <a href="products.html">Products</a>
+               <a href="about.html">About</a>
+               <a href="client.html">Client</a>
+               <a href="contact.html">Contact</a>
+            </div>
+            <span class="toggle_icon" onclick="openNav()"><img src="images/toggle-icon.png"></span>
+            <a class="logo" href="index.html"><img src="images/logo.png"></a></a>
+            <form class="form-inline ">
+               <div class="login_text">
+                  <ul>
+                     <li><a href="#"><img src="images/user-icon.png"></a></li>
+                     <li><a href="#"><img src="images/bag-icon.png"></a></li>
+                     <li><a href="#"><img src="images/search-icon.png"></a></li>
+                  </ul>
                </div>
-               <span class="toggle_icon" onclick="openNav()"><img src="images/toggle-icon.png"></span>
-               <a class="logo" href="index.html"><img src="images/logo.png"></a></a>
-               <form class="form-inline ">
-                  <div class="login_text">
-                     <ul>
-                        <li><a href="#"><img src="images/user-icon.png"></a></li>
-                        <li><a href="#"><img src="images/bag-icon.png"></a></li>
-                        <li><a href="#"><img src="images/search-icon.png"></a></li>
-                     </ul>
-                  </div>
-               </form>
-            </nav>
-         </div>
+            </form>
+         </nav>
       </div>
-      <!-- header section end -->
-      <!-- banner section start -->
-      <div class="banner_section layout_padding">
-         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-               <div class="carousel-item active">
-                  <div class="container">
-                     <div class="row">
-                        <div class="col-sm-6">
-                           <h1 class="banner_taital">Beauty <br>Kit</h1>
-                           <p class="banner_text">Ncididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-                           <div class="read_bt"><a href="#">Buy Now</a></div>
-                        </div>
-                        <div class="col-sm-6">
-                           <div class="banner_img"><img src="images/banner-img.png"></div>
-                        </div>
+   </div>
+   <!-- header section end -->
+   <!-- banner section start -->
+   <div class="banner_section layout_padding">
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+         <div class="carousel-inner">
+            <div class="carousel-item active">
+               <div class="container">
+                  <div class="row">
+                     <div class="col-sm-6">
+                        <h1 class="banner_taital">Beauty <br>Makeup</h1>
+                        <p class="banner_text">CHUYÊN GIA TRANG ĐIỂM </p>
+
+                     </div>
+                     <div class="col-sm-6">
+                        <div class="banner_img"><img src="images/banner-img.png"></div>
                      </div>
                   </div>
                </div>
-               <div class="carousel-item">
-                  <div class="container">
-                     <div class="row">
-                        <div class="col-sm-6">
-                           <h1 class="banner_taital">Beauty <br>Kit</h1>
-                           <p class="banner_text">Ncididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-                           <div class="read_bt"><a href="#">Buy Now</a></div>
-                        </div>
-                        <div class="col-sm-6">
-                           <div class="banner_img"><img src="images/banner-img.png"></div>
-                        </div>
+            </div>
+            <div class="carousel-item">
+               <div class="container">
+                  <div class="row">
+                     <div class="col-sm-6">
+                        <h1 class="banner_taital">Beauty <br>Kit</h1>
+                        <p class="banner_text">Ncididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                           nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
+                        <div class="read_bt"><a href="#">Buy Now</a></div>
+                     </div>
+                     <div class="col-sm-6">
+                        <div class="banner_img"><img src="images/banner-img.png"></div>
                      </div>
                   </div>
                </div>
-               <div class="carousel-item">
-                  <div class="container">
-                     <div class="row">
-                        <div class="col-sm-6">
-                           <h1 class="banner_taital">Beauty <br>Kit</h1>
-                           <p class="banner_text">Ncididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-                           <div class="read_bt"><a href="#">Buy Now</a></div>
-                        </div>
-                        <div class="col-sm-6">
-                           <div class="banner_img"><img src="images/banner-img.png"></div>
-                        </div>
+            </div>
+            <div class="carousel-item">
+               <div class="container">
+                  <div class="row">
+                     <div class="col-sm-6">
+                        <h1 class="banner_taital">Beauty <br>Kit</h1>
+                        <p class="banner_text">Ncididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                           nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
+                        <div class="read_bt"><a href="#">Buy Now</a></div>
+                     </div>
+                     <div class="col-sm-6">
+                        <div class="banner_img"><img src="images/banner-img.png"></div>
                      </div>
                   </div>
                </div>
-               <div class="carousel-item">
-                  <div class="container">
-                     <div class="row">
-                        <div class="col-sm-6">
-                           <h1 class="banner_taital">Beauty <br>Kit</h1>
-                           <p class="banner_text">Ncididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-                           <div class="read_bt"><a href="#">Buy Now</a></div>
-                        </div>
-                        <div class="col-sm-6">
-                           <div class="banner_img"><img src="images/banner-img.png"></div>
-                        </div>
+            </div>
+            <div class="carousel-item">
+               <div class="container">
+                  <div class="row">
+                     <div class="col-sm-6">
+                        <h1 class="banner_taital">Beauty <br>Kit</h1>
+                        <p class="banner_text">Ncididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                           nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
+                        <div class="read_bt"><a href="#">Buy Now</a></div>
+                     </div>
+                     <div class="col-sm-6">
+                        <div class="banner_img"><img src="images/banner-img.png"></div>
                      </div>
                   </div>
                </div>
             </div>
          </div>
       </div>
-      <!-- banner section end -->
-      <!-- product section start -->
-      <div class="product_section layout_padding">
-         <div class="container">
+   </div>
+   <!-- banner section end -->
+   <!-- product section start -->
+   <div class="product_section layout_padding">
+      <div class="container">
+         <div class="row">
+            <div class="col-sm-12">
+               <h1 class="product_taital">DỊCH VỤ.</h1>
+
+            </div>
+         </div>
+         <div class="product_section_2 layout_padding">
             <div class="row">
-               <div class="col-sm-12">
-                  <h1 class="product_taital">Our Products</h1>
-                  <p class="product_text">incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+               <div class="col-lg-3 col-sm-6">
+                  <div class="product_box">
+                     <h4 class="bursh_text">Trang Điểm Cô Dâu
+                     </h4>
+                     <p class="lorem_text">Beauty Makeup luôn cập nhập những xu hướng makeup và kiểu tóc cô dâu mới nhất
+                        để giúp các chị em luôn toả sáng và rạng ngời trong ngày lễ trọng đại của mình.
+
+                        Bên Trâm có 4 phong cách hiện được khách hàng yêu thích đó là: Hàn Quốc, Trung Hoa, Tây Âu, Thái
+                        Lan. </p>
+                     <img src="images/img-1.jpg" class="image_1">
+
+                  </div>
+               </div>
+               <div class="col-lg-3 col-sm-6">
+                  <div class="product_box">
+                     <h4 class="bursh_text">Trang Điểm Dự Tiệc
+                     </h4>
+                     <p class="lorem_text">Nếu bạn là người thích kiểu makeup nhẹ nhàng, trong veo thì Trâm Makeup chính
+                        là sự lựa chọn tốt nhất dành cho bạn.
+
+                        Phong cách và kiểu tóc được chúng tôi cập nhật thường xuyên vì thế mọi người luôn đi đầu xu
+                        hướng makeup hiện nay khi book lịch thực hiện bên chúng tô </p>
+                     <img src="images/img-2.png" class="image_1">
+
+                  </div>
+               </div>
+               <div class="col-lg-3 col-sm-6">
+                  <div class="product_box">
+                     <h4 class="bursh_text">Trang Điểm Chụp Hình Concept
+
+                     </h4>
+                     <p class="lorem_text">Nếu bạn là người yêu thích chụp hình và cần nhiều bộ hình đẹp, độc đáo thì
+                        Beauty Makeup chính là sự lựa chọn dành cho bạn.
+
+                        Hiện bên Beauty nhận makeup theo layout hoặc theo yêu cầu của khách hàng.</p>
+                     <img src="images/img-3.png" class="image_1">
+
+                  </div>
+               </div>
+               <div class="col-lg-3 col-sm-6">
+                  <div class="product_box">
+                     <h4 class="bursh_text">Trang Điểm Ký Yếu</h4>
+                     <p class="lorem_text">Dịch vụ trang điểm kỷ yếu chuyên nghiệp, giúp các bạn học sinh, sinh viên có
+                        được những bức ảnh kỷ niệm đẹp và sáng tạo nhất trong ngày ra trường </p>
+                     <img src="images/img-4.jpg" class="image_1">
+
+                  </div>
                </div>
             </div>
-            <div class="product_section_2 layout_padding">
-               <div class="row">
-                  <div class="col-lg-3 col-sm-6">
-                     <div class="product_box">
-                        <h4 class="bursh_text">Beauty Bursh</h4>
-                        <p class="lorem_text">incididunt ut labore et dolore magna aliqua. Ut enim </p>
-                        <img src="images/img-1.png" class="image_1">
-                        <div class="btn_main">
-                           <div class="buy_bt">
-                              <ul>
-                                 <li class="active"><a href="#">Buy Now</a></li>
-                                 <li><a href="#">Buy Now</a></li>
-                              </ul>
-                           </div>
-                           <h3 class="price_text">Price $30</h3>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                     <div class="product_box">
-                        <h4 class="bursh_text">Beauty Bursh</h4>
-                        <p class="lorem_text">incididunt ut labore et dolore magna aliqua. Ut enim </p>
-                        <img src="images/img-2.png" class="image_1">
-                        <div class="btn_main">
-                           <div class="buy_bt">
-                              <ul>
-                                 <li class="active"><a href="#">Buy Now</a></li>
-                                 <li><a href="#">Buy Now</a></li>
-                              </ul>
-                           </div>
-                           <h3 class="price_text">Price $30</h3>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                     <div class="product_box">
-                        <h4 class="bursh_text">Beauty Bursh</h4>
-                        <p class="lorem_text">incididunt ut labore et dolore magna aliqua. Ut enim </p>
-                        <img src="images/img-3.png" class="image_1">
-                        <div class="btn_main">
-                           <div class="buy_bt">
-                              <ul>
-                                 <li class="active"><a href="#">Buy Now</a></li>
-                                 <li><a href="#">Buy Now</a></li>
-                              </ul>
-                           </div>
-                           <h3 class="price_text">Price $30</h3>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                     <div class="product_box">
-                        <h4 class="bursh_text">Beauty Bursh</h4>
-                        <p class="lorem_text">incididunt ut labore et dolore magna aliqua. Ut enim </p>
-                        <img src="images/img-4.png" class="image_1">
-                        <div class="btn_main">
-                           <div class="buy_bt">
-                              <ul>
-                                 <li class="active"><a href="#">Buy Now</a></li>
-                                 <li><a href="#">Buy Now</a></li>
-                              </ul>
-                           </div>
-                           <h3 class="price_text">Price $30</h3>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="row">
-                  <div class="col-lg-3 col-sm-6">
-                     <div class="product_box">
-                        <h4 class="bursh_text">Beauty Bursh</h4>
-                        <p class="lorem_text">incididunt ut labore et dolore magna aliqua. Ut enim </p>
-                        <img src="images/img-5.png" class="image_1">
-                        <div class="btn_main">
-                           <div class="buy_bt">
-                              <ul>
-                                 <li class="active"><a href="#">Buy Now</a></li>
-                                 <li><a href="#">Buy Now</a></li>
-                              </ul>
-                           </div>
-                           <h3 class="price_text">Price $30</h3>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                     <div class="product_box">
-                        <h4 class="bursh_text">Beauty Bursh</h4>
-                        <p class="lorem_text">incididunt ut labore et dolore magna aliqua. Ut enim </p>
-                        <img src="images/img-6.png" class="image_1">
-                        <div class="btn_main">
-                           <div class="buy_bt">
-                              <ul>
-                                 <li class="active"><a href="#">Buy Now</a></li>
-                                 <li><a href="#">Buy Now</a></li>
-                              </ul>
-                           </div>
-                           <h3 class="price_text">Price $30</h3>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                     <div class="product_box">
-                        <h4 class="bursh_text">Beauty Bursh</h4>
-                        <p class="lorem_text">incididunt ut labore et dolore magna aliqua. Ut enim </p>
-                        <img src="images/img-7.png" class="image_1">
-                        <div class="btn_main">
-                           <div class="buy_bt">
-                              <ul>
-                                 <li class="active"><a href="#">Buy Now</a></li>
-                                 <li><a href="#">Buy Now</a></li>
-                              </ul>
-                           </div>
-                           <h3 class="price_text">Price $30</h3>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                     <div class="product_box">
-                        <h4 class="bursh_text">Beauty Bursh</h4>
-                        <p class="lorem_text">incididunt ut labore et dolore magna aliqua. Ut enim </p>
-                        <img src="images/img-8.png" class="image_1">
-                        <div class="btn_main">
-                           <div class="buy_bt">
-                              <ul>
-                                 <li class="active"><a href="#">Buy Now</a></li>
-                                 <li><a href="#">Buy Now</a></li>
-                              </ul>
-                           </div>
-                           <h3 class="price_text">Price $30</h3>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="row">
-                  <div class="col-lg-3 col-sm-6">
-                     <div class="product_box">
-                        <h4 class="bursh_text">Beauty Bursh</h4>
-                        <p class="lorem_text">incididunt ut labore et dolore magna aliqua. Ut enim </p>
-                        <img src="images/img-9.png" class="image_1">
-                        <div class="btn_main">
-                           <div class="buy_bt">
-                              <ul>
-                                 <li class="active"><a href="#">Buy Now</a></li>
-                                 <li><a href="#">Buy Now</a></li>
-                              </ul>
-                           </div>
-                           <h3 class="price_text">Price $30</h3>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                     <div class="product_box">
-                        <h4 class="bursh_text">Beauty Bursh</h4>
-                        <p class="lorem_text">incididunt ut labore et dolore magna aliqua. Ut enim </p>
-                        <img src="images/img-10.png" class="image_1">
-                        <div class="btn_main">
-                           <div class="buy_bt">
-                              <ul>
-                                 <li class="active"><a href="#">Buy Now</a></li>
-                                 <li><a href="#">Buy Now</a></li>
-                              </ul>
-                           </div>
-                           <h3 class="price_text">Price $30</h3>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                     <div class="product_box">
-                        <h4 class="bursh_text">Beauty Bursh</h4>
-                        <p class="lorem_text">incididunt ut labore et dolore magna aliqua. Ut enim </p>
-                        <img src="images/img-11.png" class="image_1">
-                        <div class="btn_main">
-                           <div class="buy_bt">
-                              <ul>
-                                 <li class="active"><a href="#">Buy Now</a></li>
-                                 <li><a href="#">Buy Now</a></li>
-                              </ul>
-                           </div>
-                           <h3 class="price_text">Price $30</h3>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                     <div class="product_box">
-                        <h4 class="bursh_text">Beauty Bursh</h4>
-                        <p class="lorem_text">incididunt ut labore et dolore magna aliqua. Ut enim </p>
-                        <img src="images/img-12.png" class="image_1">
-                        <div class="btn_main">
-                           <div class="buy_bt">
-                              <ul>
-                                 <li class="active"><a href="#">Buy Now</a></li>
-                                 <li><a href="#">Buy Now</a></li>
-                              </ul>
-                           </div>
-                           <h3 class="price_text">Price $30</h3>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="seemore_bt"><a href="#">See More</a></div>
-            </div>
+
          </div>
-      </div>
-      <!-- product section end -->
-      <!-- about section start -->
-      <div class="about_section layout_padding">
-         <div class="container">
-            <div class="about_section_main">
-               <div class="row">
-                  <div class="col-md-6">
-                     <div class="about_taital_main">
-                        <h1 class="about_taital">About Our beauty sotore</h1>
-                        <p class="about_text">labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatlabore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatlabore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
-                        <div class="readmore_bt"><a href="#">Read More</a></div>
+         <!-- product section end -->
+         <!-- about section start -->
+         <div class="about_section layout_padding">
+            <div class="container">
+               <div class="about_section_main">
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="about_taital_main">
+                           <h1 class="about_taital">BEAUTY MAKEUP</h1>
+                           <p class="about_text">Luôn tự hào là một trong số ít Studio Trang điểm – makeup chuyên nghiệp
+                              hàng đầu với dịch vụ trang điểm tại nhà đầu tiên ở TP.HCM. Với đầy đủ các dịch vụ như
+                              Makeup tiệc hỏi, Makeup tiệc cưới, Makeup event, shooting, đào tạo – makeup artist, make
+                              up cá nhân…Beauty đã nhận được sự tin tưởng của hàng ngàn khách hàng. Với đội ngũ chuyên
+                              viên trang điểm dày dạn kinh nghiệm, sự đa dạng trong phong cách trang điểm và tạo mẫu
+                              tóc, sự khéo léo trong việc khắc phục khuyết điểm và tôn lên ưu điểm, Beauty sẽ giúp bạn
+                              tự tin hơn trong mọi sự kiện quan trọng. Trở thành cô dâu xinh đẹp nhất là ước mơ của biết
+                              bao cô gái, hãy để Beauty giúp bạn biến điều đó thành sự thật.</p>
+                           <div class="readmore_bt"><a href="#">Read More</a></div>
+                        </div>
                      </div>
-                  </div>
-                  <div class="col-md-6">
-                     <div><img src="images/about-img.png" class="image_3"></div>
+                     <div class="col-md-6">
+                        <div><img src="images/about-img.png" class="image_3"></div>
+                     </div>
                   </div>
                </div>
             </div>
          </div>
-      </div>
-      <!-- about section end -->
-      <!-- customer section start -->
-      <div class="customer_section layout_padding">
-         <div class="container">
-            <div class="row">
-               <div class="col-sm-12">
-                  <h1 class="customer_taital">What says customers</h1>
-               </div>
-            </div>
-            <div id="main_slider" class="carousel slide" data-ride="carousel">
-               <div class="carousel-inner">
-                  <div class="carousel-item active">
-                     <div class="client_section_2">
-                        <div class="client_main">
-                           <div class="client_left">
-                              <div class="client_img"><img src="images/client-img.png"></div>
-                           </div>
-                           <div class="client_right">
-                              <h3 class="name_text">Jonyro</h3>
-                              <p class="dolor_text">consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation  eu </p>
-                           </div>
+         <!-- about section end -->
+
+         <!-- customer section end -->
+         <!-- contact section start -->
+
+         <!-- contact section end -->
+         <!-- footer section start -->
+         <div class="footer_section layout_padding">
+            <div class="container">
+               <div class="footer_logo"><a href="index.html"><img src="images/footer-logo.png"></a></div>
+               <div class="contact_section_2">
+                  <div class="row">
+                     <div class="col-sm-4">
+                        <h3 class="address_text">Contact Us</h3>
+                        <div class="address_bt">
+                           <ul>
+                              <li>
+                                 <a href="#">
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i><span
+                                       class="padding_left10">Address : Quận 12, Thành Phố Hồ Chí Minh
+                                    </span>
+                                 </a>
+                              </li>
+                              <li>
+                                 <a href="#">
+                                    <i class="fa fa-phone" aria-hidden="true"></i><span class="padding_left10">Call :
+                                       +01
+                                       1234567890</span>
+                                 </a>
+                              </li>
+                              <li>
+                                 <a href="#">
+                                    <i class="fa fa-envelope" aria-hidden="true"></i><span class="padding_left10">Email
+                                       :
+                                       demo@gmail.com</span>
+                                 </a>
+                              </li>
+                           </ul>
+                        </div>
+                     </div>
+                     <div class="col-sm-4">
+                        <div class="footer_logo_1"><a href="index.html"><img src="images/footer-logo.png"></a></div>
+                        <p class="dummy_text">BEAUTY MAKEUP nơi giúp phái đẹp luôn tự tin và tỏa sáng khi sử dụng dịch
+                           vụ
+                           tại chúng tôi.</p>
+                     </div>
+                     <div class="col-sm-4">
+                        <div class="main">
+                           <h3 class="address_text">Đến Chúng Tôi
+                           </h3>
+                           <p class="ipsum_text">Mọi người sẽ được hỗ trợ tư vấn và đưa ra nhiều giải pháp làm đẹp tốt
+                              nhất.
+                           </p>
                         </div>
                      </div>
                   </div>
-                  <div class="carousel-item">
-                     <div class="client_section_2">
-                        <div class="client_main">
-                           <div class="client_left">
-                              <div class="client_img"><img src="images/client-img.png"></div>
-                           </div>
-                           <div class="client_right">
-                              <h3 class="name_text">Jonyro</h3>
-                              <p class="dolor_text">consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation  eu </p>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="carousel-item">
-                     <div class="client_section_2">
-                        <div class="client_main">
-                           <div class="client_left">
-                              <div class="client_img"><img src="images/client-img.png"></div>
-                           </div>
-                           <div class="client_right">
-                              <h3 class="name_text">Jonyro</h3>
-                              <p class="dolor_text">consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation  eu </p>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
                </div>
-               <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
-               <i class="fa fa-angle-left"></i>
-               </a>
-               <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
-               <i class="fa fa-angle-right"></i>
-               </a>
-            </div>
-         </div>
-      </div>
-      <!-- customer section end -->
-      <!-- contact section start -->
-      <div class="contact_section layout_padding">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-6">
-                  <h1 class="contact_taital">Get In Touch</h1>
-                  <p class="contact_text">Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation  eu </p>
-               </div>
-               <div class="col-md-6">
-                  <div class="contact_main">
-                     <div class="contact_bt"><a href="#">Contact Form</a></div>
-                     <div class="newletter_bt"><a href="#">Newletter</a></div>
-                  </div>
+               <div class="social_icon">
+                  <ul>
+                     <li>
+                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                     </li>
+                     <li>
+                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                     </li>
+                     <li>
+                        <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                     </li>
+                     <li>
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                     </li>
+                  </ul>
                </div>
             </div>
          </div>
-         <div class="map_main">
-            <div class="map-responsive">
-               <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&amp;q=Eiffel+Tower+Paris+France" width="600" height="400" frameborder="0" style="border:0; width: 100%;" allowfullscreen=""></iframe>
+         <!-- footer section end -->
+         <!-- copyright section start -->
+         <div class="copyright_section">
+            <div class="container">
+               <p class="copyright_text">2020 All Rights Reserved. </p>
             </div>
          </div>
-      </div>
-      <!-- contact section end -->
-      <!-- footer section start -->
-      <div class="footer_section layout_padding">
-         <div class="container">
-            <div class="footer_logo"><a href="index.html"><img src="images/footer-logo.png"></a></div>
-            <div class="contact_section_2">
-               <div class="row">
-                  <div class="col-sm-4">
-                     <h3 class="address_text">Contact Us</h3>
-                     <div class="address_bt">
-                        <ul>
-                           <li>
-                              <a href="#">
-                              <i class="fa fa-map-marker" aria-hidden="true"></i><span class="padding_left10">Address : Loram Ipusm</span>
-                              </a>
-                           </li>
-                           <li>
-                              <a href="#">
-                              <i class="fa fa-phone" aria-hidden="true"></i><span class="padding_left10">Call : +01 1234567890</span>
-                              </a>
-                           </li>
-                           <li>
-                              <a href="#">
-                              <i class="fa fa-envelope" aria-hidden="true"></i><span class="padding_left10">Email : demo@gmail.com</span>
-                              </a>
-                           </li>
-                        </ul>
-                     </div>
-                  </div>
-                  <div class="col-sm-4">
-                     <div class="footer_logo_1"><a href="index.html"><img src="images/footer-logo.png"></a></div>
-                     <p class="dummy_text">commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non</p>
-                  </div>
-                  <div class="col-sm-4">
-                     <div class="main">
-                        <h3 class="address_text">Best Products</h3>
-                        <p class="ipsum_text">dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non</p>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="social_icon">
-               <ul>
-                  <li>
-                     <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                  </li>
-                  <li>
-                     <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                  </li>
-                  <li>
-                     <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                  </li>
-                  <li>
-                     <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                  </li>
-               </ul>
-            </div>
-         </div>
-      </div>
-      <!-- footer section end -->
-      <!-- copyright section start -->
-      <div class="copyright_section">
-         <div class="container">
-            <p class="copyright_text">2020 All Rights Reserved. Design by <a href="https://html.design">Free html  Templates</a></p>
-         </div>
-      </div>
-      <!-- copyright section end -->
-      <!-- Javascript files-->
-      <script src="js/jquery.min.js"></script>
-      <script src="js/popper.min.js"></script>
-      <script src="js/bootstrap.bundle.min.js"></script>
-      <script src="js/jquery-3.0.0.min.js"></script>
-      <script src="js/plugin.js"></script>
-      <!-- sidebar -->
-      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-      <script src="js/custom.js"></script>
-      <!-- javascript --> 
-      <script src="js/owl.carousel.js"></script>
-      <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>  
-      <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
-      <script>
-         function openNav() {
-           document.getElementById("mySidenav").style.width = "100%";
-         }
-         
-         function closeNav() {
-           document.getElementById("mySidenav").style.width = "0";
-         }
-      </script> 
-   </body>
+         <!-- copyright section end -->
+         <!-- Javascript files-->
+         <script src="js/jquery.min.js"></script>
+         <script src="js/popper.min.js"></script>
+         <script src="js/bootstrap.bundle.min.js"></script>
+         <script src="js/jquery-3.0.0.min.js"></script>
+         <script src="js/plugin.js"></script>
+         <!-- sidebar -->
+         <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+         <script src="js/custom.js"></script>
+         <!-- javascript -->
+         <script src="js/owl.carousel.js"></script>
+         <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+         <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+         <script>
+            function openNav() {
+               document.getElementById("mySidenav").style.width = "100%";
+            }
+
+            function closeNav() {
+               document.getElementById("mySidenav").style.width = "0";
+            }
+         </script>
+</body>
+
 </html>
