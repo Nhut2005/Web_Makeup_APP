@@ -30,4 +30,8 @@ public class Home {
     public String contactPage() {
         return "contact";  // Trả về file contact.html
     }
+    @GetMapping("/login")  // Trang liên hệ
+    public String loginPage() {
+        return "login";  // Trả về file contact.html
+    }
 }
