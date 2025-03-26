@@ -1,11 +1,14 @@
 package com.example.webmakeup.controllers;
+
+import com.example.webmakeup.models.User;
+import com.example.webmakeup.services.UserService;
+import com.example.webmakeup.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 public class AuthController {
     @Autowired
     private UserService userService;
@@ -14,17 +17,15 @@ public class AuthController {
     private JwtUtil jwtUtil;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody User user) {
-        userService.registerUser(user.getUsername(), user.getPassword());
-        return ResponseEntity.ok("User registered successfully");
+    public User register(@RequestBody User user) {
+        return userService.registerUser(user.getUsername(), user.getPassword());
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User user) {
+    public String login(@RequestBody User user) {
         if (userService.authenticate(user.getUsername(), user.getPassword())) {
-            String token = jwtUtil.generateToken(user.getUsername());
-            return ResponseEntity.ok(token);
+            return jwtUtil.generateToken(user.getUsername());
         }
-        return ResponseEntity.status(401).body("Invalid credentials");
+        return "Invalid credentials";
     }
 }

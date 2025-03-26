@@ -8,30 +8,30 @@ public class Home {
     
     @GetMapping("/")  // Trang chủ
     public String homePage() {
-        return "index";  // Trả về file index.html
+        return "index";  
     }
 
     @GetMapping("/products")  // Trang sản phẩm
     public String productsPage() {
-        return "products";  // Trả về file products.html
+        return "products"; 
     }
 
     @GetMapping("/about")  // Trang giới thiệu
     public String aboutPage() {
-        return "about";  // Trả về file about.html
+        return "about"; 
     }
 
     @GetMapping("/client")  // Trang khách hàng
     public String clientPage() {
-        return "client";  // Trả về file client.html
+        return "client"; 
     }
 
     @GetMapping("/contact")  // Trang liên hệ
     public String contactPage() {
-        return "contact";  // Trả về file contact.html
+        return "contact";  
     }
-    @GetMapping("/login")  // Trang liên hệ
+    @GetMapping("/login")  // Trang login
     public String loginPage() {
-        return "login";  // Trả về file contact.html
+        return "login";  
     }
 }

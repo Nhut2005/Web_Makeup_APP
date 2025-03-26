@@ -1,11 +1,11 @@
-package com.example.webmakeup;
+package com.example.webmakeup.services;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.example.webmakeup.models.User;
+import com.example.webmakeup.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-@SpringBootApplication
+
 @Service
 public class UserService {
     @Autowired
