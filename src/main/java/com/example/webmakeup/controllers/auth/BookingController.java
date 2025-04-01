@@ -1,4 +1,4 @@
-package com.example.webmakeup.controllers;
+package com.example.webmakeup.controllers.auth;
 
 import com.example.webmakeup.models.Booking;
 import com.example.webmakeup.services.BookingService;

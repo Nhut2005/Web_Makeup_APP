@@ -1,4 +1,4 @@
-package com.example.webmakeup.controllers;
+package com.example.webmakeup.controllers.auth;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
