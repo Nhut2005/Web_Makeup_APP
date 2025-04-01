@@ -1,0 +1,560 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f9f3f7;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #d23c77;
+    text-align: center;
+}
+
+.booking-options {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+    gap: 15px;
+}
+
+.option-btn {
+    padding: 12px 20px;
+    background-color: white;
+    border: 2px solid #e8c4d4;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.option-btn.active {
+    background-color: #d23c77;
+    color: white;
+    border-color: #d23c77;
+}
+
+.branch-selection {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+.branch-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #d23c77;
+}
+
+.branch-search {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.branch-search input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #e8c4d4;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+}
+
+.branch-search button {
+    padding: 10px 15px;
+    background-color: #d23c77;
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.branch-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.branch-card {
+    border: 1px solid #e8c4d4;
+    border-radius: 8px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.branch-card:hover {
+    border-color: #d23c77;
+    box-shadow: 0 3px 10px rgba(210, 60, 119, 0.1);
+}
+
+.branch-card.selected {
+    border-color: #d23c77;
+    background-color: #fdf0f5;
+}
+
+.branch-name {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.branch-address {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.branch-distance {
+    color: #d23c77;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.artist-selection {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+.artist-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #d23c77;
+}
+
+.artist-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.artist-card {
+    border: 1px solid #e8c4d4;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.artist-card:hover {
+    border-color: #d23c77;
+}
+
+.artist-card.selected {
+    border-color: #d23c77;
+    background-color: #fdf0f5;
+}
+
+.artist-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 2px solid #e8c4d4;
+}
+
+.artist-name {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.artist-specialty {
+    color: #666;
+    font-size: 13px;
+}
+
+.booking-type {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 15px;
+}
+
+.type-btn {
+    padding: 10px 20px;
+    background-color: white;
+    border: 1px solid #e8c4d4;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.type-btn.active {
+    background-color: #d23c77;
+    color: white;
+    border-color: #d23c77;
+}
+
+.calendar-section {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+.calendar-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #d23c77;
+}
+
+.calendar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.calendar-month {
+    font-weight: 600;
+}
+
+.calendar-arrows {
+    display: flex;
+    gap: 10px;
+}
+
+.calendar-arrow {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #d23c77;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.calendar-header {
+    font-weight: 600;
+    padding: 8px;
+    color: #d23c77;
+}
+
+.calendar-day {
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+    position: relative;
+}
+
+.calendar-day:hover {
+    background-color: #f9e0eb;
+}
+
+.calendar-day.selected {
+    background-color: #d23c77;
+    color: white;
+}
+
+.calendar-day.unavailable {
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+.calendar-day.today {
+    font-weight: 600;
+    color: #d23c77;
+}
+
+.time-slots {
+    margin-top: 20px;
+}
+
+.time-period {
+    margin-bottom: 15px;
+}
+
+.period-title {
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #d23c77;
+}
+
+.slot-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.slot {
+    padding: 8px 15px;
+    background-color: white;
+    border: 1px solid #e8c4d4;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+}
+
+.slot:hover {
+    background-color: #f9e0eb;
+}
+
+.slot.selected {
+    background-color: #d23c77;
+    color: white;
+    border-color: #d23c77;
+}
+
+.slot.unavailable {
+    background-color: #f5f5f5;
+    color: #ccc;
+    border-color: #eee;
+    cursor: not-allowed;
+}
+
+.service-selection {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+.service-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #d23c77;
+}
+
+.service-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.service-card {
+    border: 1px solid #e8c4d4;
+    border-radius: 8px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.service-card:hover {
+    border-color: #d23c77;
+}
+
+.service-card.selected {
+    border-color: #d23c77;
+    background-color: #fdf0f5;
+}
+
+.service-name {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.service-description {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.service-price {
+    color: #d23c77;
+    font-weight: 600;
+}
+
+.service-duration {
+    color: #666;
+    font-size: 13px;
+}
+
+.summary-section {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+.summary-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #d23c77;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #e8c4d4;
+}
+
+.summary-label {
+    color: #666;
+}
+
+.summary-value {
+    font-weight: 600;
+}
+
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #d23c77;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn {
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-secondary {
+    background-color: white;
+    border: 2px solid #d23c77;
+    color: #d23c77;
+}
+
+.btn-secondary:hover {
+    background-color: #fdf0f5;
+}
+
+.btn-primary {
+    background-color: #d23c77;
+    border: 2px solid #d23c77;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #b83267;
+    border-color: #b83267;
+}
+
+.location-section {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+.location-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #d23c77;
+}
+
+.location-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.location-radio {
+    margin-right: 10px;
+}
+
+.location-label {
+    font-weight: 500;
+}
+
+.location-details {
+    margin-left: 25px;
+    padding: 15px;
+    background-color: #f9f3f7;
+    border-radius: 8px;
+    display: none;
+}
+
+.location-details.active {
+    display: block;
+}
+
+.address-input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #e8c4d4;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.map-container {
+    height: 200px;
+    background-color: #eee;
+    border-radius: 5px;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+}
+
+.wait-time {
+    color: #d23c77;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.alternative-branches {
+    background-color: #fdf0f5;
+    border: 1px solid #e8c4d4;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 15px;
+    display: none;
+}
+
+.alternative-title {
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #d23c77;
+}
+
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    display: none;
+    z-index: 1000;
+}

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đặt lịch trang điểm - Glamour Studio</title>
+    <link rel="stylesheet" type="text/css" href="css/booking.css">
+</head>
+<body>
+<h1>Đặt lịch trang điểm</h1>
+
+<div class="booking-options">
+    <button class="option-btn active" id="branch-booking">Đặt tại salon</button>
+    <button class="option-btn" id="home-booking">Đặt tại nhà</button>
+</div>
+
+<div class="branch-selection" id="branch-section">
+    <div class="branch-title">Chọn chi nhánh</div>
+    <div class="branch-search">
+        <input type="text" placeholder="Tìm chi nhánh gần bạn...">
+        <button id="detect-location">📍</button>
+    </div>
+    <div class="branch-list">
+        <div class="branch-card selected" data-branch="1">
+            <div class="branch-name">Glamour Studio - Tràng Tiền</div>
+            <div class="branch-address">15 Tràng Tiền, Hoàn Kiếm, Hà Nội</div>
+            <div class="branch-distance">Cách bạn 0.5km</div>
+        </div>
+        <div class="branch-card" data-branch="2">
+            <div class="branch-name">Glamour Studio - Times City</div>
+            <div class="branch-address">458 Minh Khai, Hai Bà Trưng, Hà Nội</div>
+            <div class="branch-distance">Cách bạn 3.2km</div>
+        </div>
+        <div class="branch-card" data-branch="3">
+            <div class="branch-name">Glamour Studio - Royal City</div>
+            <div class="branch-address">72A Nguyễn Trãi, Thanh Xuân, Hà Nội</div>
+            <div class="branch-distance">Cách bạn 5.7km</div>
+        </div>
+    </div>
+</div>
+
+<div class="location-section" id="home-section" style="display: none;">
+    <div class="location-title">Địa điểm trang điểm</div>
+    <div class="location-option">
+        <input type="radio" id="current-location" name="location" class="location-radio" checked>
+        <label for="current-location" class="location-label">Sử dụng vị trí hiện tại của tôi</label>
+    </div>
+    <div class="location-details active" id="current-location-details">
+        <div class="map-container">Bản đồ hiển thị vị trí của bạn</div>
+        <div class="wait-time">Thời gian chờ ước tính: 15-20 phút</div>
+    </div>
+
+    <div class="location-option">
+        <input type="radio" id="other-location" name="location" class="location-radio">
+        <label for="other-location" class="location-label">Nhập địa chỉ khác</label>
+    </div>
+    <div class="location-details" id="other-location-details">
+        <input type="text" class="address-input" placeholder="Nhập địa chỉ cụ thể...">
+        <div class="map-container">Bản đồ hiển thị vị trí nhập</div>
+        <div class="wait-time">Thời gian chờ ước tính: 25-35 phút</div>
+    </div>
+</div>
+
+<div class="alternative-branches" id="alternative-branches">
+    <div class="alternative-title">Chi nhánh bạn chọn đã kín lịch. Gợi ý chi nhánh khác:</div>
+    <div class="branch-list">
+        <div class="branch-card" data-branch="2">
+            <div class="branch-name">Glamour Studio - Times City</div>
+            <div class="branch-address">458 Minh Khai, Hai Bà Trưng, Hà Nội</div>
+            <div class="branch-distance">Cách bạn 3.2km</div>
+        </div>
+        <div class="branch-card" data-branch="4">
+            <div class="branch-name">Glamour Studio - Vincom</div>
+            <div class="branch-address">191 Bà Triệu, Hai Bà Trưng, Hà Nội</div>
+            <div class="branch-distance">Cách bạn 2.1km</div>
+        </div>
+    </div>
+</div>
+
+<div class="artist-selection">
+    <div class="artist-title">Chọn nghệ sĩ trang điểm</div>
+    <div class="artist-list">
+        <div class="artist-card selected" data-artist="1">
+            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Artist" class="artist-avatar">
+            <div class="artist-name">Linh Nguyễn</div>
+            <div class="artist-specialty">Chuyên trang điểm cô dâu</div>
+        </div>
+        <div class="artist-card" data-artist="2">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Artist" class="artist-avatar">
+            <div class="artist-name">Mai Phương</div>
+            <div class="artist-specialty">Chuyên trang điểm dự tiệc</div>
+        </div>
+        <div class="artist-card" data-artist="3">
+            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Artist" class="artist-avatar">
+            <div class="artist-name">Hương Trần</div>
+            <div class="artist-specialty">Chuyên trang điểm tự nhiên</div>
+        </div>
+        <div class="artist-card unavailable" data-artist="4">
+            <img src="https://randomuser.me/api/portraits/women/76.jpg" alt="Artist" class="artist-avatar">
+            <div class="artist-name">Lan Anh</div>
+            <div class="artist-specialty">Chuyên trang điểm sân khấu</div>
+            <div style="color: #d23c77; font-size: 12px; margin-top: 5px;">Đã kín lịch</div>
+        </div>
+    </div>
+</div>
+
+<div class="booking-type">
+    <button class="type-btn active" id="specific-time">Đặt khung giờ cụ thể</button>
+    <button class="type-btn" id="fifo">Ai đến trước phục vụ trước</button>
+</div>
+
+<div class="calendar-section">
+    <div class="calendar-title">Chọn ngày và giờ</div>
+    <div class="calendar-nav">
+        <div class="calendar-month">Tháng 4, 2023</div>
+        <div class="calendar-arrows">
+            <button class="calendar-arrow">←</button>
+            <button class="calendar-arrow">→</button>
+        </div>
+    </div>
+    <div class="calendar-grid">
+        <div class="calendar-header">T2</div>
+        <div class="calendar-header">T3</div>
+        <div class="calendar-header">T4</div>
+        <div class="calendar-header">T5</div>
+        <div class="calendar-header">T6</div>
+        <div class="calendar-header">T7</div>
+        <div class="calendar-header">CN</div>
+
+        <div class="calendar-day unavailable">27</div>
+        <div class="calendar-day unavailable">28</div>
+        <div class="calendar-day unavailable">29</div>
+        <div class="calendar-day unavailable">30</div>
+        <div class="calendar-day unavailable">31</div>
+        <div class="calendar-day">1</div>
+        <div class="calendar-day">2</div>
+
+        <div class="calendar-day">3</div>
+        <div class="calendar-day today">4</div>
+        <div class="calendar-day selected">5</div>
+        <div class="calendar-day">6</div>
+        <div class="calendar-day">7</div>
+        <div class="calendar-day">8</div>
+        <div class="calendar-day">9</div>
+
+        <div class="calendar-day">10</div>
+        <div class="calendar-day">11</div>
+        <div class="calendar-day">12</div>
+        <div class="calendar-day">13</div>
+        <div class="calendar-day">14</div>
+        <div class="calendar-day">15</div>
+        <div class="calendar-day">16</div>
+    </div>
+
+    <div class="time-slots">
+        <div class="time-period">
+            <div class="period-title">Buổi sáng</div>
+            <div class="slot-container">
+                <div class="slot">8:30</div>
+                <div class="slot">9:00</div>
+                <div class="slot selected">9:30</div>
+                <div class="slot">10:00</div>
+                <div class="slot unavailable">10:30</div>
+            </div>
+        </div>
+
+        <div class="time-period">
+            <div class="period-title">Buổi chiều</div>
+            <div class="slot-container">
+                <div class="slot">11:00</div>
+                <div class="slot">11:30</div>
+                <div class="slot">12:00</div>
+                <div class="slot">12:30</div>
+                <div class="slot unavailable">13:00</div>
+            </div>
+        </div>
+
+        <div class="time-period">
+            <div class="period-title">Buổi tối</div>
+            <div class="slot-container">
+                <div class="slot">14:00</div>
+                <div class="slot">14:30</div>
+                <div class="slot">15:00</div>
+                <div class="slot">15:30</div>
+                <div class="slot">16:00</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="service-selection">
+    <div class="service-title">Chọn dịch vụ</div>
+    <div class="service-list">
+        <div class="service-card selected" data-service="1">
+            <div class="service-name">Trang điểm dự tiệc</div>
+            <div class="service-description">Trang điểm nhẹ nhàng phù hợp với các buổi tiệc, họp mặt</div>
+            <div class="service-price">500.000đ</div>
+            <div class="service-duration">- 60 phút</div>
+        </div>
+        <div class="service-card" data-service="2">
+            <div class="service-name">Trang điểm cô dâu</div>
+            <div class="service-description">Trang điểm đậm hơn cho ngày trọng đại</div>
+            <div class="service-price">1.200.000đ</div>
+            <div class="service-duration">- 90 phút</div>
+        </div>
+        <div class="service-card" data-service="3">
+            <div class="service-name">Trang điểm tự nhiên</div>
+            <div class="service-description">Trang điểm nhẹ nhàng như không trang điểm</div>
+            <div class="service-price">400.000đ</div>
+            <div class="service-duration">- 45 phút</div>
+        </div>
+    </div>
+</div>
+
+<div class="summary-section">
+    <div class="summary-title">Tóm tắt đơn đặt</div>
+    <div class="summary-item">
+        <span class="summary-label">Chi nhánh:</span>
+        <span class="summary-value">Glamour Studio - Tràng Tiền</span>
+    </div>
+    <div class="summary-item">
+        <span class="summary-label">Nghệ sĩ:</span>
+        <span class="summary-value">Linh Nguyễn</span>
+    </div>
+    <div class="summary-item">
+        <span class="summary-label">Dịch vụ:</span>
+        <span class="summary-value">Trang điểm dự tiệc</span>
+    </div>
+    <div class="summary-item">
+        <span class="summary-label">Thời gian:</span>
+        <span class="summary-value">09:30, Thứ Tư 05/04/2023</span>
+    </div>
+    <div class="summary-item">
+        <span class="summary-label">Địa điểm:</span>
+        <span class="summary-value">Tại salon</span>
+    </div>
+    <div class="summary-total">
+        <span>Tổng cộng:</span>
+        <span>500.000đ</span>
+    </div>
+</div>
+
+<div class="action-buttons">
+    <button class="btn btn-secondary">Hủy bỏ</button>
+    <button class="btn btn-primary" id="confirm-booking">Xác nhận đặt lịch</button>
+</div>
+
+<div class="notification" id="notification">
+    Đặt lịch thành công! Chúng tôi sẽ liên hệ với bạn để xác nhận.
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Toggle between branch and home booking
+        const branchBookingBtn = document.getElementById('branch-booking');
+        const homeBookingBtn = document.getElementById('home-booking');
+        const branchSection = document.getElementById('branch-section');
+        const homeSection = document.getElementById('home-section');
+
+        branchBookingBtn.addEventListener('click', function() {
+            branchBookingBtn.classList.add('active');
+            homeBookingBtn.classList.remove('active');
+            branchSection.style.display = 'block';
+            homeSection.style.display = 'none';
+            updateSummaryLocation('Tại salon');
+        });
+
+        homeBookingBtn.addEventListener('click', function() {
+            homeBookingBtn.classList.add('active');
+            branchBookingBtn.classList.remove('active');
+            homeSection.style.display = 'block';
+            branchSection.style.display = 'none';
+            updateSummaryLocation('Tại nhà');
+        });
+
+        // Branch selection
+        const branchCards = document.querySelectorAll('.branch-card:not(.unavailable)');
+        branchCards.forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelector('.branch-card.selected').classList.remove('selected');
+                this.classList.add('selected');
+                updateSummaryBranch(this.querySelector('.branch-name').textContent);
+
+                // Simulate branch fully booked scenario
+                if (this.dataset.branch === '1') {
+                    document.getElementById('alternative-branches').style.display = 'none';
+                } else {
+                    document.getElementById('alternative-branches').style.display = 'block';
+                }
+            });
+        });
+
+        // Location selection
+        const locationRadios = document.querySelectorAll('.location-radio');
+        locationRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.querySelectorAll('.location-details').forEach(detail => {
+                    detail.classList.remove('active');
+                });
+                document.getElementById(`${this.id}-details`).classList.add('active');
+            });
+        });
+
+        // Artist selection
+        const artistCards = document.querySelectorAll('.artist-card:not(.unavailable)');
+        artistCards.forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelector('.artist-card.selected').classList.remove('selected');
+                this.classList.add('selected');
+                updateSummaryArtist(this.querySelector('.artist-name').textContent);
+            });
+        });
+
+        // Booking type selection
+        const typeBtns = document.querySelectorAll('.type-btn');
+        typeBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelector('.type-btn.active').classList.remove('active');
+                this.classList.add('active');
+            });
+        });
+
+        // Calendar day selection
+        const calendarDays = document.querySelectorAll('.calendar-day:not(.unavailable)');
+        calendarDays.forEach(day => {
+            day.addEventListener('click', function() {
+                document.querySelector('.calendar-day.selected').classList.remove('selected');
+                this.classList.add('selected');
+                updateSummaryDate(this.textContent);
+            });
+        });
+
+        // Time slot selection
+        const timeSlots = document.querySelectorAll('.slot:not(.unavailable)');
+        timeSlots.forEach(slot => {
+            slot.addEventListener('click', function() {
+                document.querySelector('.slot.selected')?.classList.remove('selected');
+                this.classList.add('selected');
+                updateSummaryTime(this.textContent);
+            });
+        });
+
+        // Service selection
+        const serviceCards = document.querySelectorAll('.service-card');
+        serviceCards.forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelector('.service-card.selected').classList.remove('selected');
+                this.classList.add('selected');
+                updateSummaryService(
+                    this.querySelector('.service-name').textContent,
+                    this.querySelector('.service-price').textContent
+                );
+            });
+        });
+
+        // Detect location button
+        document.getElementById('detect-location').addEventListener('click', function() {
+            alert('Đang xác định vị trí của bạn...');
+        });
+
+        // Confirm booking button
+        document.getElementById('confirm-booking').addEventListener('click', function() {
+            const notification = document.getElementById('notification');
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        });
+
+        // Update summary functions
+        function updateSummaryBranch(branchName) {
+            document.querySelectorAll('.summary-item')[0].querySelector('.summary-value').textContent = branchName;
+        }
+
+        function updateSummaryArtist(artistName) {
+            document.querySelectorAll('.summary-item')[1].querySelector('.summary-value').textContent = artistName;
+        }
+
+        function updateSummaryService(serviceName, servicePrice) {
+            document.querySelectorAll('.summary-item')[2].querySelector('.summary-value').textContent = serviceName;
+            document.querySelector('.summary-total').lastElementChild.textContent = servicePrice;
+        }
+
+        function updateSummaryDate(day) {
+            const dateStr = `${day}/04/2023`;
+            const time = document.querySelector('.slot.selected')?.textContent || '--:--';
+            document.querySelectorAll('.summary-item')[3].querySelector('.summary-value').textContent =
+                `${time}, Thứ Tư ${dateStr}`;
+        }
+
+        function updateSummaryTime(time) {
+            const dateStr = '05/04/2023';
+            document.querySelectorAll('.summary-item')[3].querySelector('.summary-value').textContent =
+                `${time}, Thứ Tư ${dateStr}`;
+        }
+
+        function updateSummaryLocation(location) {
+            document.querySelectorAll('.summary-item')[4].querySelector('.summary-value').textContent = location;
+        }
+    });
+</script>
+</body>
+</html>

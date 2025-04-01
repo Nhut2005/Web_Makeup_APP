@@ -1,4 +1,4 @@
-package com.example.webmakeup.controllers.auth;
+package com.example.webmakeup.controllers.res;
 
 import com.example.webmakeup.models.ShopOwner;
 import com.example.webmakeup.services.ShopOwnerService;
