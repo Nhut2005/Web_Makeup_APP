@@ -1,37 +1,24 @@
 package com.example.webmakeup.models;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
 public class User {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(unique = true, nullable = false)
     private String username;
-
-    @Column(nullable = false)
     private String password;
 
-    // Constructors
-    public User() {}
-
+    // Add this constructor
     public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    // Getters & Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+    // Getter and Setter methods for username and password
     public String getUsername() {
         return username;
     }
@@ -46,5 +33,9 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    // Default constructor (if necessary)
+    public User() {
     }
 }

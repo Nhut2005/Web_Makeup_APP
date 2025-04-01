@@ -6,34 +6,34 @@ import java.time.LocalTime;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "user_bookings")  // Đã xóa annotation @Table trùng lặp
+@Table(name = "user_bookings")  
 public class UserBooking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Quan hệ với User
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    // Quan hệ với Chi nhánh (có thể null cho dịch vụ tại nhà)
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "branch_id")
     private Branch branch;
 
-    // Quan hệ với Nghệ sĩ trang điểm
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "artist_id", nullable = false)
     private MakeupArtist artist;
 
-    // Quan hệ với Dịch vụ
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_id", nullable = false)
     private Service service;
 
-    // Thông tin đặt lịch
+    
     @Column(nullable = false)
     private LocalDate bookingDate;
 
@@ -46,22 +46,22 @@ public class UserBooking {
     @Column(nullable = false)
     private LocalDateTime updatedAt = LocalDateTime.now();
 
-    // Loại đặt lịch (nên dùng enum)
-    @Column(nullable = false)
-    private String bookingType; // "SPECIFIC_TIME" hoặc "FIFO"
 
-    // Loại địa điểm (nên dùng enum)
     @Column(nullable = false)
-    private String locationType; // "SALON" hoặc "HOME"
+    private String bookingType;
 
-    // Thông tin địa chỉ nhà (chỉ cho dịch vụ tại nhà)
+
+    @Column(nullable = false)
+    private String locationType;
+
+
     @Column(length = 500)
     private String homeAddress;
 
     @Column(length = 100)
     private String homeLocationNotes;
 
-    // Thông tin thanh toán
+
     @Column(nullable = false)
     private double totalPrice;
 
@@ -71,7 +71,7 @@ public class UserBooking {
     @Column
     private String transactionId;
 
-    // Quản lý trạng thái
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private BookingStatus status = BookingStatus.PENDING;
@@ -81,16 +81,16 @@ public class UserBooking {
 
     // Constructors
     public UserBooking() {
-        // Giá trị mặc định đã được đặt trong khai báo trường
+        
     }
 
-    // Enum cho trạng thái
+
     public enum BookingStatus {
-        PENDING,   // Đang chờ
-        CONFIRMED, // Đã xác nhận
-        COMPLETED, // Hoàn thành
-        CANCELLED, // Đã hủy
-        NO_SHOW    // Không đến
+        PENDING,   
+        CONFIRMED, 
+        COMPLETED, 
+        CANCELLED, 
+        NO_SHOW    
     }
 
     // Getter và setter
@@ -110,9 +110,7 @@ public class UserBooking {
         this.user = user;
     }
 
-    // ... (các getter và setter khác)
 
-    // Các phương thức nghiệp vụ
     public boolean isAtHome() {
         return "HOME".equalsIgnoreCase(locationType);
     }
@@ -132,7 +130,7 @@ public class UserBooking {
         this.updatedAt = LocalDateTime.now();
     }
 
-    // Cập nhật thời gian
+
     @PreUpdate
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
