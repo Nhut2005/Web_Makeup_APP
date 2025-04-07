@@ -1,17 +1,21 @@
 package com.example.webmakeup.models;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
-public class Branch {
+public class Artist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
-    private String address;
+    private String specialization;
     private String phoneNumber;
     private String email;
+
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<WorkSchedule> workSchedules;
 
     // Getters and Setters
     public Long getId() {
@@ -30,12 +34,12 @@ public class Branch {
         this.name = name;
     }
 
-    public String getAddress() {
-        return address;
+    public String getSpecialization() {
+        return specialization;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
     }
 
     public String getPhoneNumber() {
@@ -52,5 +56,13 @@ public class Branch {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<WorkSchedule> getWorkSchedules() {
+        return workSchedules;
+    }
+
+    public void setWorkSchedules(List<WorkSchedule> workSchedules) {
+        this.workSchedules = workSchedules;
     }
 }
