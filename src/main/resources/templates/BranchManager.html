@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Chi nhánh</title>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        /* Header */
+        header {
+            background-color: #4a76a8;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        /* Container */
+        .container {
+            display: flex;
+            min-height: calc(100vh - 60px);
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #3a5a78;
+            color: white;
+            padding: 20px 0;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+        }
+        
+        .sidebar-menu li {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .sidebar-menu li:hover {
+            background-color: #4a76a8;
+        }
+        
+        .sidebar-menu li.active {
+            background-color: #4a76a8;
+            border-left: 4px solid #ff9800;
+        }
+        
+        .sidebar-menu li i {
+            margin-right: 10px;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+        
+        .content-section {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        h2 {
+            margin-bottom: 20px;
+            color: #4a76a8;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        /* Login Form */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+        
+        .login-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            width: 400px;
+        }
+        
+        .login-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .btn {
+            background-color: #4a76a8;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #3a5a78;
+        }
+        
+        .btn-block {
+            width: 100%;
+        }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        table th, table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        
+        table tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        /* Form styles */
+        .form-row {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .form-col {
+            flex: 1;
+            padding: 0 10px;
+        }
+        
+        .form-col:first-child {
+            padding-left: 0;
+        }
+        
+        .form-col:last-child {
+            padding-right: 0;
+        }
+        
+        /* Feedback */
+        .feedback-item {
+            border: 1px solid #eee;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+        
+        .feedback-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .feedback-customer {
+            font-weight: bold;
+        }
+        
+        .feedback-date {
+            color: #777;
+        }
+        
+        .feedback-actions {
+            margin-top: 10px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+            
+            .form-row {
+                flex-direction: column;
+            }
+            
+            .form-col {
+                padding: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen (visible by default) -->
+    <div id="login-screen" class="login-container">
+        <div class="login-form">
+            <h2>Đăng nhập hệ thống</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Tên đăng nhập</label>
+                    <input type="text" id="username" placeholder="Nhập tên đăng nhập" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Mật khẩu</label>
+                    <input type="password" id="password" placeholder="Nhập mật khẩu" required>
+                </div>
+                <button type="submit" class="btn btn-block">Đăng nhập</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Main App (hidden by default) -->
+    <div id="app-container" style="display: none;">
+        <header>
+            <div class="logo">Quản lý Chi nhánh</div>
+            <div class="user-info">
+                <img src="https://via.placeholder.com/40" alt="User Avatar">
+                <span id="current-user">Admin</span>
+            </div>
+        </header>
+        
+        <div class="container">
+            <div class="sidebar">
+                <ul class="sidebar-menu">
+                    <li class="active" data-section="profile"><i>👤</i> Hồ sơ cá nhân</li>
+                    <li data-section="revenue"><i>💰</i> Doanh thu chi nhánh</li>
+                    <li data-section="artists"><i>💄</i> Nghệ sĩ trang điểm</li>
+                    <li data-section="services"><i>✂️</i> Danh sách dịch vụ</li>
+                    <li data-section="feedback"><i>📝</i> Phản hồi khách hàng</li>
+                    <li id="logout-btn"><i>🚪</i> Đăng xuất</li>
+                </ul>
+            </div>
+            
+            <div class="main-content">
+                <!-- Profile Section -->
+                <div id="profile" class="content-section active">
+                    <h2>Hồ sơ cá nhân</h2>
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="profile-name">Họ và tên</label>
+                                <input type="text" id="profile-name" value="Nguyễn Văn A">
+                            </div>
+                            <div class="form-group">
+                                <label for="profile-email">Email</label>
+                                <input type="email" id="profile-email" value="nguyenvana@example.com">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="profile-phone">Số điện thoại</label>
+                                <input type="tel" id="profile-phone" value="0987654321">
+                            </div>
+                            <div class="form-group">
+                                <label for="profile-position">Chức vụ</label>
+                                <input type="text" id="profile-position" value="Quản lý chi nhánh" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn">Cập nhật thông tin</button>
+                </div>
+                
+                <!-- Revenue Section -->
+                <div id="revenue" class="content-section">
+                    <h2>Doanh thu chi nhánh</h2>
+                    <div>
+                        <canvas id="revenueChart" height="100"></canvas>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tháng</th>
+                                <th>Doanh thu</th>
+                                <th>Khách hàng</th>
+                                <th>Tăng trưởng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tháng 1</td>
+                                <td>75,000,000 đ</td>
+                                <td>120</td>
+                                <td>+12%</td>
+                            </tr>
+                            <tr>
+                                <td>Tháng 2</td>
+                                <td>82,500,000 đ</td>
+                                <td>135</td>
+                                <td>+10%</td>
+                            </tr>
+                            <tr>
+                                <td>Tháng 3</td>
+                                <td>90,000,000 đ</td>
+                                <td>150</td>
+                                <td>+9%</td>
+                            </tr>
+                            <tr>
+                                <td>Tháng 4</td>
+                                <td>99,000,000 đ</td>
+                                <td>165</td>
+                                <td>+10%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Artists Section -->
+                <div id="artists" class="content-section">
+                    <h2>Quản lý nghệ sĩ trang điểm</h2>
+                    <button class="btn" id="add-artist-btn">Thêm nghệ sĩ</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên nghệ sĩ</th>
+                                <th>Chuyên môn</th>
+                                <th>Kinh nghiệm</th>
+                                <th>Lịch làm việc</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>001</td>
+                                <td>Trần Thị B</td>
+                                <td>Trang điểm cô dâu</td>
+                                <td>5 năm</td>
+                                <td>Thứ 2 - Thứ 6</td>
+                                <td>
+                                    <button class="btn" style="padding: 5px 10px; font-size: 12px;">Sửa</button>
+                                    <button class="btn" style="padding: 5px 10px; font-size: 12px; background-color: #dc3545;">Xóa</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>002</td>
+                                <td>Lê Văn C</td>
+                                <td>Trang điểm nghệ thuật</td>
+                                <td>3 năm</td>
+                                <td>Thứ 3 - Thứ 7</td>
+                                <td>
+                                    <button class="btn" style="padding: 5px 10px; font-size: 12px;">Sửa</button>
+                                    <button class="btn" style="padding: 5px 10px; font-size: 12px; background-color: #dc3545;">Xóa</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>003</td>
+                                <td>Phạm Thị D</td>
+                                <td>Trang điểm chuyên nghiệp</td>
+                                <td>7 năm</td>
+                                <td>Thứ 2 - Chủ nhật</td>
+                                <td>
+                                    <button class="btn" style="padding: 5px 10px; font-size: 12px;">Sửa</button>
+                                    <button class="btn" style="padding: 5px 10px; font-size: 12px; background-color: #dc3545;">Xóa</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Services Section -->
+                <div id="services" class="content-section">
+                    <h2>Danh sách dịch vụ</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên dịch vụ</th>
+                                <th>Mô tả</th>
+                                <th>Giá</th>
+                                <th>Thời gian</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>SV001</td>
+                                <td>Trang điểm cô dâu</td>
+                                <td>Trang điểm đầy đủ cho cô dâu</td>
+                                <td>2,500,000 đ</td>
+                                <td>2 giờ</td>
+                            </tr>
+                            <tr>
+                                <td>SV002</td>
+                                <td>Trang điểm dự tiệc</td>
+                                <td>Trang điểm nhẹ nhàng cho dự tiệc</td>
+                                <td>1,200,000 đ</td>
+                                <td>1 giờ</td>
+                            </tr>
+                            <tr>
+                                <td>SV003</td>
+                                <td>Trang điểm chụp ảnh</td>
+                                <td>Trang điểm chuyên nghiệp cho chụp ảnh</td>
+                                <td>1,800,000 đ</td>
+                                <td>1.5 giờ</td>
+                            </tr>
+                            <tr>
+                                <td>SV004</td>
+                                <td>Trang điểm cá nhân</td>
+                                <td>Trang điểm hàng ngày</td>
+                                <td>800,000 đ</td>
+                                <td>45 phút</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Feedback Section -->
+                <div id="feedback" class="content-section">
+                    <h2>Phản hồi khách hàng</h2>
+                    <div class="feedback-item">
+                        <div class="feedback-header">
+                            <span class="feedback-customer">Nguyễn Thị E</span>
+                            <span class="feedback-date">15/04/2023</span>
+                        </div>
+                        <div class="feedback-rating">★★★★☆</div>
+                        <div class="feedback-content">
+                            <p>Dịch vụ rất tốt, nhân viên nhiệt tình. Tôi rất hài lòng với kiểu trang điểm cô dâu.</p>
+                        </div>
+                        <div class="feedback-actions">
+                            <button class="btn" style="padding: 5px 10px; font-size: 12px;">Đã xử lý</button>
+                        </div>
+                    </div>
+                    
+                    <div class="feedback-item">
+                        <div class="feedback-header">
+                            <span class="feedback-customer">Trần Văn F</span>
+                            <span class="feedback-date">10/04/2023</span>
+                        </div>
+                        <div class="feedback-rating">★★★☆☆</div>
+                        <div class="feedback-content">
+                            <p>Chất lượng trang điểm tốt nhưng thời gian chờ đợi hơi lâu. Cần cải thiện thêm về mặt này.</p>
+                        </div>
+                        <div class="feedback-actions">
+                            <button class="btn" style="padding: 5px 10px; font-size: 12px;">Đã xử lý</button>
+                        </div>
+                    </div>
+                    
+                    <div class="feedback-item">
+                        <div class="feedback-header">
+                            <span class="feedback-customer">Lê Thị G</span>
+                            <span class="feedback-date">05/04/2023</span>
+                        </div>
+                        <div class="feedback-rating">★★★★★</div>
+                        <div class="feedback-content">
+                            <p>Tuyệt vời! Tôi rất hài lòng với dịch vụ. Sẽ quay lại và giới thiệu cho bạn bè.</p>
+                        </div>
+                        <div class="feedback-actions">
+                            <button class="btn" style="padding: 5px 10px; font-size: 12px;">Đã xử lý</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Đợi DOM tải xong
+        document.addEventListener('DOMContentLoaded', function() {
+            // Xử lý đăng nhập
+            const loginForm = document.getElementById('loginForm');
+            const loginScreen = document.getElementById('login-screen');
+            const appContainer = document.getElementById('app-container');
+            
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                // Kiểm tra đăng nhập đơn giản (trong thực tế cần kiểm tra với server)
+                if(username && password) {
+                    // Ẩn màn hình đăng nhập, hiện ứng dụng
+                    loginScreen.style.display = 'none';
+                    appContainer.style.display = 'block';
+                    
+                    // Cập nhật tên người dùng
+                    document.getElementById('current-user').textContent = username;
+                } else {
+                    alert('Vui lòng nhập tên đăng nhập và mật khẩu!');
+                }
+            });
+            
+            // Xử lý đăng xuất
+            document.getElementById('logout-btn').addEventListener('click', function() {
+                if(confirm('Bạn có chắc chắn muốn đăng xuất?')) {
+                    appContainer.style.display = 'none';
+                    loginScreen.style.display = 'flex';
+                    loginForm.reset();
+                }
+            });
+            
+            // Xử lý chuyển đổi giữa các section
+            const menuItems = document.querySelectorAll('.sidebar-menu li:not(#logout-btn)');
+            const contentSections = document.querySelectorAll('.content-section');
+            
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // Xóa active class từ tất cả menu items
+                    menuItems.forEach(i => i.classList.remove('active'));
+                    
+                    // Thêm active class vào item được click
+                    this.classList.add('active');
+                    
+                    // Ẩn tất cả content sections
+                    contentSections.forEach(section => section.classList.remove('active'));
+                    
+                    // Hiển thị section tương ứng
+                    const sectionId = this.getAttribute('data-section');
+                    document.getElementById(sectionId).classList.add('active');
+                });
+            });
+            
+            // Thêm nghệ sĩ mới
+            document.getElementById('add-artist-btn').addEventListener('click', function() {
+                alert('Chức năng thêm nghệ sĩ mới sẽ được triển khai sau!');
+            });
+            
+            // Tạo biểu đồ doanh thu (giả lập)
+            setTimeout(() => {
+                const ctx = document.getElementById('revenueChart').getContext('2d');
+                if(ctx) {
+                    // Đây chỉ là ví dụ, trong thực tế cần thêm thư viện Chart.js
+                    console.log('Biểu đồ doanh thu sẽ được hiển thị tại đây');
+                }
+            }, 500);
+        });
+    </script>
+</body>
+</html>
