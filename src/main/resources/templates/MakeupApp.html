@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ứng dụng nghệ sĩ trang điểm</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fefefe;
+      color: #333;
+    }
+
+    header {
+      background-color: #d63384;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.5rem;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-around;
+      background: #f8f9fa;
+      border-top: 1px solid #ccc;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    nav button {
+      background: none;
+      border: none;
+      padding: 1rem;
+      font-size: 1rem;
+      color: #333;
+    }
+
+    section {
+      padding: 1rem;
+      margin-bottom: 60px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button.action {
+      background-color: #d63384;
+      color: white;
+      border: none;
+      padding: 0.75rem;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .notification {
+      background-color: #ffe0ec;
+      padding: 0.75rem;
+      border-left: 4px solid #d63384;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>🎨 Ứng dụng Nghệ sĩ Trang điểm</header>
+
+  <section id="loginSection">
+    <h2>Đăng nhập</h2>
+    <input type="text" id="username" placeholder="Tên đăng nhập" />
+    <input type="password" id="password" placeholder="Mật khẩu" />
+    <button class="action" onclick="login()">Đăng nhập</button>
+  </section>
+
+  <section id="profileSection" class="hidden">
+    <h2>Hồ sơ cá nhân</h2>
+    <input type="text" placeholder="Họ tên" />
+    <input type="text" placeholder="Số điện thoại" />
+    <textarea placeholder="Giới thiệu bản thân..."></textarea>
+    <button class="action">Lưu thông tin</button>
+  </section>
+
+  <section id="scheduleSection" class="hidden">
+    <h2>Lịch làm việc</h2>
+    <p>📅 Thứ 2: 10:00 - 18:00</p>
+    <p>📅 Thứ 3: 12:00 - 20:00</p>
+    <p>📅 Thứ 4: Nghỉ</p>
+  </section>
+
+  <section id="bookingSection" class="hidden">
+    <h2>Quản lý đặt lịch</h2>
+    <div class="notification">💄 Khách A vừa đặt lịch vào 10:00 ngày mai.</div>
+    <div class="notification">💄 Khách B hủy lịch vào chiều Thứ 7.</div>
+  </section>
+
+  <section id="notificationSection" class="hidden">
+    <h2>Thông báo</h2>
+    <ul>
+      <li>🔔 Bạn có 2 lịch mới hôm nay.</li>
+      <li>🔔 Cập nhật lịch làm việc thành công.</li>
+    </ul>
+  </section>
+
+  <nav>
+    <button onclick="showSection('profileSection')">👤 Hồ sơ</button>
+    <button onclick="showSection('scheduleSection')">📅 Lịch</button>
+    <button onclick="showSection('bookingSection')">📋 Đặt lịch</button>
+    <button onclick="showSection('notificationSection')">🔔 Thông báo</button>
+  </nav>
+
+  <script>
+    function login() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      if (username && password) {
+        document.getElementById('loginSection').classList.add('hidden');
+        showSection('profileSection');
+      } else {
+        alert('Vui lòng nhập đầy đủ thông tin!');
+      }
+    }
+
+    function showSection(sectionId) {
+      const sections = ['profileSection', 'scheduleSection', 'bookingSection', 'notificationSection'];
+      sections.forEach(id => {
+        document.getElementById(id).classList.add('hidden');
+      });
+      document.getElementById(sectionId).classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
