@@ -4,7 +4,6 @@ import com.example.webmakeup.models.Artist;
 import com.example.webmakeup.models.WorkSchedule;
 import com.example.webmakeup.repositories.ArtistRepository;
 import com.example.webmakeup.repositories.WorkScheduleRepository;
-import com.example.webmakeup.services.ArtistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

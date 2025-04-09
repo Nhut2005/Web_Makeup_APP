@@ -1,8 +1,8 @@
-package com.example.webmakeup.services.impl;
+package com.example.webmakeup.services;
 
 import com.example.webmakeup.models.Account;
 import com.example.webmakeup.repositories.AccountRepository;
-import com.example.webmakeup.services.AccountService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

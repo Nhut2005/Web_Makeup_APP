@@ -2,7 +2,7 @@ package com.example.webmakeup.services;
 
 import com.example.webmakeup.models.Promotion;
 import com.example.webmakeup.repositories.PromotionRepository;
-import com.example.webmakeup.services.PromotionService;
+// Removed unused import
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

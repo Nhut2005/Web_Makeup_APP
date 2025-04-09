@@ -2,7 +2,7 @@ package com.example.webmakeup.services;
 
 import com.example.webmakeup.models.Appointment;
 import com.example.webmakeup.repositories.AppointmentRepository;
-import com.example.webmakeup.services.AppointmentService;
+// Removed unused import
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
