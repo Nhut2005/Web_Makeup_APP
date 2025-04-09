@@ -1,145 +1,1094 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ứng dụng nghệ sĩ trang điểm</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #fefefe;
-      color: #333;
-    }
-
-    header {
-      background-color: #d63384;
-      color: white;
-      padding: 1rem;
-      text-align: center;
-      font-size: 1.5rem;
-    }
-
-    nav {
-      display: flex;
-      justify-content: space-around;
-      background: #f8f9fa;
-      border-top: 1px solid #ccc;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-    }
-
-    nav button {
-      background: none;
-      border: none;
-      padding: 1rem;
-      font-size: 1rem;
-      color: #333;
-    }
-
-    section {
-      padding: 1rem;
-      margin-bottom: 60px;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    input, textarea {
-      width: 100%;
-      padding: 0.5rem;
-      margin-top: 0.5rem;
-      margin-bottom: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    button.action {
-      background-color: #d63384;
-      color: white;
-      border: none;
-      padding: 0.75rem;
-      border-radius: 6px;
-      cursor: pointer;
-      width: 100%;
-    }
-
-    .notification {
-      background-color: #ffe0ec;
-      padding: 0.75rem;
-      border-left: 4px solid #d63384;
-      margin-bottom: 1rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Makeup Artist App</title>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 100%;
+            padding: 0 15px;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: white;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #888;
+            text-decoration: none;
+            font-size: 12px;
+        }
+        
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .nav-item.active {
+            color: #ff6b81;
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 20px 0;
+            margin-bottom: 70px;
+        }
+        
+        .section-title {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #ff6b81;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        
+        /* Login Form */
+        .login-container {
+            max-width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ff6b81;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+        }
+        
+        /* Profile */
+        .profile-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+        }
+        
+        .profile-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .profile-bio {
+            color: #777;
+            margin-bottom: 15px;
+        }
+        
+        .profile-details {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* Calendar */
+        .calendar {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .calendar-title {
+            font-weight: bold;
+        }
+        
+        .calendar-nav {
+            display: flex;
+        }
+        
+        .calendar-nav button {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #ff6b81;
+        }
+        
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #777;
+        }
+        
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+        
+        .calendar-day {
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .calendar-day:hover {
+            background-color: #f8f8f8;
+        }
+        
+        .calendar-day.today {
+            background-color: #ff6b81;
+            color: white;
+        }
+        
+        .calendar-day.has-booking {
+            background-color: #fad0c4;
+            color: #333;
+        }
+        
+        /* Bookings */
+        .booking-list {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .booking-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .booking-item:last-child {
+            border-bottom: none;
+        }
+        
+        .booking-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .booking-client {
+            font-weight: bold;
+        }
+        
+        .booking-time {
+            color: #ff6b81;
+            font-size: 14px;
+        }
+        
+        .booking-service {
+            color: #777;
+            font-size: 14px;
+        }
+        
+        .booking-status {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-confirmed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        /* Notifications */
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #ff6b81;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .notification-item {
+            display: flex;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+        }
+        
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #fad0c4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: #ff6b81;
+        }
+        
+        .notification-content {
+            flex: 1;
+        }
+        
+        .notification-time {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 10px;
+            overflow: hidden;
+            animation: modalFadeIn 0.3s;
+        }
+        
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal-header {
+            padding: 15px;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            color: white;
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .modal-body {
+            padding: 20px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+        
+        .mb-3 {
+            margin-bottom: 15px;
+        }
+        
+        .mt-3 {
+            margin-top: 15px;
+        }
+        
+        .d-none {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-  <header>🎨 Ứng dụng Nghệ sĩ Trang điểm</header>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo">Makeup Artist</div>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <!-- Login Screen (default) -->
+            <div class="login-container" id="loginScreen">
+                <h2>Đăng nhập</h2>
+                <div class="form-group">
+                    <label for="username">Tên đăng nhập</label>
+                    <input type="text" id="username" placeholder="Nhập tên đăng nhập">
+                </div>
+                <div class="form-group">
+                    <label for="password">Mật khẩu</label>
+                    <input type="password" id="password" placeholder="Nhập mật khẩu">
+                </div>
+                <button class="btn" id="loginBtn">Đăng nhập</button>
+            </div>
+            
+            <!-- Profile Screen (hidden by default) -->
+            <div class="d-none" id="profileScreen">
+                <div class="profile-header">
+                    <img src="https://via.placeholder.com/100" alt="Avatar" class="profile-avatar" id="profileAvatar">
+                    <div class="profile-name" id="profileName">Nguyễn Thị Mỹ Linh</div>
+                    <div class="profile-bio" id="profileBio">Chuyên gia trang điểm chuyên nghiệp</div>
+                </div>
+                
+                <div class="profile-details">
+                    <div class="detail-item">
+                        <span>Email:</span>
+                        <span id="profileEmail">linh.makeup@example.com</span>
+                    </div>
+                    <div class="detail-item">
+                        <span>Số điện thoại:</span>
+                        <span id="profilePhone">0987654321</span>
+                    </div>
+                    <div class="detail-item">
+                        <span>Địa chỉ:</span>
+                        <span id="profileAddress">Hà Nội, Việt Nam</span>
+                    </div>
+                    <div class="detail-item">
+                        <span>Kinh nghiệm:</span>
+                        <span id="profileExperience">5 năm</span>
+                    </div>
+                </div>
+                
+                <button class="btn" id="editProfileBtn">Chỉnh sửa hồ sơ</button>
+            </div>
+            
+            <!-- Calendar Screen (hidden by default) -->
+            <div class="d-none" id="calendarScreen">
+                <h2 class="section-title">Lịch làm việc</h2>
+                
+                <div class="calendar">
+                    <div class="calendar-header">
+                        <div class="calendar-title" id="currentMonth">Tháng 6, 2023</div>
+                        <div class="calendar-nav">
+                            <button id="prevMonth">&lt;</button>
+                            <button id="nextMonth" class="ml-2">&gt;</button>
+                        </div>
+                    </div>
+                    
+                    <div class="calendar-weekdays">
+                        <div>CN</div>
+                        <div>T2</div>
+                        <div>T3</div>
+                        <div>T4</div>
+                        <div>T5</div>
+                        <div>T6</div>
+                        <div>T7</div>
+                    </div>
+                    
+                    <div class="calendar-days" id="calendarDays">
+                        <!-- Calendar days will be generated by JavaScript -->
+                    </div>
+                </div>
+                
+                <h2 class="section-title mt-3">Lịch hẹn hôm nay</h2>
+                
+                <div class="booking-list" id="todayBookings">
+                    <div class="booking-item">
+                        <div class="booking-header">
+                            <div class="booking-client">Trần Thị Hương</div>
+                            <div class="booking-time">09:00 - 11:00</div>
+                        </div>
+                        <div class="booking-service">Trang điểm cô dâu</div>
+                        <div class="booking-status status-confirmed">Đã xác nhận</div>
+                    </div>
+                    <div class="booking-item">
+                        <div class="booking-header">
+                            <div class="booking-client">Lê Minh Anh</div>
+                            <div class="booking-time">14:00 - 15:30</div>
+                        </div>
+                        <div class="booking-service">Trang điểm dự tiệc</div>
+                        <div class="booking-status status-pending">Chờ xác nhận</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bookings Screen (hidden by default) -->
+            <div class="d-none" id="bookingsScreen">
+                <h2 class="section-title">Quản lý đặt lịch</h2>
+                
+                <div class="booking-list" id="allBookings">
+                    <div class="booking-item">
+                        <div class="booking-header">
+                            <div class="booking-client">Trần Thị Hương</div>
+                            <div class="booking-time">10/06/2023, 09:00 - 11:00</div>
+                        </div>
+                        <div class="booking-service">Trang điểm cô dâu</div>
+                        <div class="booking-status status-confirmed">Đã xác nhận</div>
+                    </div>
+                    <div class="booking-item">
+                        <div class="booking-header">
+                            <div class="booking-client">Lê Minh Anh</div>
+                            <div class="booking-time">10/06/2023, 14:00 - 15:30</div>
+                        </div>
+                        <div class="booking-service">Trang điểm dự tiệc</div>
+                        <div class="booking-status status-pending">Chờ xác nhận</div>
+                    </div>
+                    <div class="booking-item">
+                        <div class="booking-header">
+                            <div class="booking-client">Phạm Thu Hà</div>
+                            <div class="booking-time">12/06/2023, 10:00 - 11:30</div>
+                        </div>
+                        <div class="booking-service">Trang điểm chụp ảnh</div>
+                        <div class="booking-status status-confirmed">Đã xác nhận</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Notifications Screen (hidden by default) -->
+            <div class="d-none" id="notificationsScreen">
+                <h2 class="section-title">Thông báo</h2>
+                
+                <div class="notification-list">
+                    <div class="notification-item">
+                        <div class="notification-icon">
+                            <i>!</i>
+                        </div>
+                        <div class="notification-content">
+                            <div>Bạn có một lịch hẹn mới từ Nguyễn Thị Mai</div>
+                            <div class="notification-time">10 phút trước</div>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-icon">
+                            <i>!</i>
+                        </div>
+                        <div class="notification-content">
+                            <div>Lịch hẹn với Trần Thị Hương đã được xác nhận</div>
+                            <div class="notification-time">2 giờ trước</div>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-icon">
+                            <i>!</i>
+                        </div>
+                        <div class="notification-content">
+                            <div>Nhắc nhở: Bạn có lịch hẹn vào ngày mai với Lê Minh Anh</div>
+                            <div class="notification-time">1 ngày trước</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation -->
+        <nav>
+            <a href="#" class="nav-item" id="navProfile">
+                <i>👤</i>
+                <span>Hồ sơ</span>
+            </a>
+            <a href="#" class="nav-item" id="navCalendar">
+                <i>📅</i>
+                <span>Lịch</span>
+            </a>
+            <a href="#" class="nav-item" id="navBookings">
+                <i>📝</i>
+                <span>Đặt lịch</span>
+                <div class="notification-badge" id="bookingBadge">2</div>
+            </a>
+            <a href="#" class="nav-item" id="navNotifications">
+                <i>🔔</i>
+                <span>Thông báo</span>
+                <div class="notification-badge" id="notificationBadge">3</div>
+            </a>
+        </nav>
+        
+        <!-- Edit Profile Modal -->
+        <div class="modal" id="editProfileModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Chỉnh sửa hồ sơ</h3>
+                    <button class="modal-close" id="closeEditModal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="editName">Họ tên</label>
+                        <input type="text" id="editName" placeholder="Nhập họ tên">
+                    </div>
+                    <div class="form-group">
+                        <label for="editBio">Giới thiệu</label>
+                        <input type="text" id="editBio" placeholder="Nhập giới thiệu ngắn">
+                    </div>
+                    <div class="form-group">
+                        <label for="editEmail">Email</label>
+                        <input type="email" id="editEmail" placeholder="Nhập email">
+                    </div>
+                    <div class="form-group">
+                        <label for="editPhone">Số điện thoại</label>
+                        <input type="tel" id="editPhone" placeholder="Nhập số điện thoại">
+                    </div>
+                    <div class="form-group">
+                        <label for="editAddress">Địa chỉ</label>
+                        <input type="text" id="editAddress" placeholder="Nhập địa chỉ">
+                    </div>
+                    <div class="form-group">
+                        <label for="editExperience">Kinh nghiệm (năm)</label>
+                        <input type="number" id="editExperience" placeholder="Nhập số năm kinh nghiệm">
+                    </div>
+                    <button class="btn" id="saveProfileBtn">Lưu thay đổi</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <section id="loginSection">
-    <h2>Đăng nhập</h2>
-    <input type="text" id="username" placeholder="Tên đăng nhập" />
-    <input type="password" id="password" placeholder="Mật khẩu" />
-    <button class="action" onclick="login()">Đăng nhập</button>
-  </section>
-
-  <section id="profileSection" class="hidden">
-    <h2>Hồ sơ cá nhân</h2>
-    <input type="text" placeholder="Họ tên" />
-    <input type="text" placeholder="Số điện thoại" />
-    <textarea placeholder="Giới thiệu bản thân..."></textarea>
-    <button class="action">Lưu thông tin</button>
-  </section>
-
-  <section id="scheduleSection" class="hidden">
-    <h2>Lịch làm việc</h2>
-    <p>📅 Thứ 2: 10:00 - 18:00</p>
-    <p>📅 Thứ 3: 12:00 - 20:00</p>
-    <p>📅 Thứ 4: Nghỉ</p>
-  </section>
-
-  <section id="bookingSection" class="hidden">
-    <h2>Quản lý đặt lịch</h2>
-    <div class="notification">💄 Khách A vừa đặt lịch vào 10:00 ngày mai.</div>
-    <div class="notification">💄 Khách B hủy lịch vào chiều Thứ 7.</div>
-  </section>
-
-  <section id="notificationSection" class="hidden">
-    <h2>Thông báo</h2>
-    <ul>
-      <li>🔔 Bạn có 2 lịch mới hôm nay.</li>
-      <li>🔔 Cập nhật lịch làm việc thành công.</li>
-    </ul>
-  </section>
-
-  <nav>
-    <button onclick="showSection('profileSection')">👤 Hồ sơ</button>
-    <button onclick="showSection('scheduleSection')">📅 Lịch</button>
-    <button onclick="showSection('bookingSection')">📋 Đặt lịch</button>
-    <button onclick="showSection('notificationSection')">🔔 Thông báo</button>
-  </nav>
-
-  <script>
-    function login() {
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-      if (username && password) {
-        document.getElementById('loginSection').classList.add('hidden');
-        showSection('profileSection');
-      } else {
-        alert('Vui lòng nhập đầy đủ thông tin!');
-      }
-    }
-
-    function showSection(sectionId) {
-      const sections = ['profileSection', 'scheduleSection', 'bookingSection', 'notificationSection'];
-      sections.forEach(id => {
-        document.getElementById(id).classList.add('hidden');
-      });
-      document.getElementById(sectionId).classList.remove('hidden');
-    }
-  </script>
+    <script>
+        // Current user data
+        let currentUser = {
+            name: "Phạm Thị D",
+            bio: "Chuyên gia trang điểm chuyên nghiệp",
+            email: "D.makeup@example.com",
+            phone: "0987654321",
+            address: "Hồ Chí Minh, Việt Nam",
+            experience: "7 năm"
+        };
+        
+        // Bookings data
+        let bookings = [
+            {
+                id: 1,
+                client: "Nguyễn Thị E",
+                date: "10/05/2025",
+                time: "09:00 - 11:00",
+                service: "Trang điểm cô dâu",
+                status: "confirmed"
+            },
+            {
+                id: 2,
+                client: "Trần Văn F",
+                date: "10/05/2025",
+                time: "14:00 - 15:30",
+                service: "Trang điểm dự tiệc",
+                status: "pending"
+            },
+            {
+                id: 3,
+                client: "Lê Thị G",
+                date: "12/05/2025",
+                time: "10:00 - 11:30",
+                service: "Trang điểm chụp ảnh",
+                status: "confirmed"
+            }
+        ];
+        
+        // Notifications data
+        let notifications = [
+            {
+                id: 1,
+                message: "Lịch hẹn với Nguyễn Thị E đã được xác nhận.",
+                time: "10 phút trước",
+                read: false
+            },
+            {
+                id: 2,
+                message: "Lịch hẹn với Lê Thị G đã được xác nhận.",
+                time: "2 giờ trước",
+                read: false
+            },
+            {
+                id: 3,
+                message: "Nhắc nhở: Lịch hẹn với Trần Văn F đang chờ xác nhận.",
+                time: "1 ngày trước",
+                read: true
+            }
+        ];
+        
+        // Trạng thái đăng nhập
+        let isLoggedIn = false;
+        
+        // DOM Elements
+        const loginScreen = document.getElementById('loginScreen');
+        const profileScreen = document.getElementById('profileScreen');
+        const calendarScreen = document.getElementById('calendarScreen');
+        const bookingsScreen = document.getElementById('bookingsScreen');
+        const notificationsScreen = document.getElementById('notificationsScreen');
+        
+        const navProfile = document.getElementById('navProfile');
+        const navCalendar = document.getElementById('navCalendar');
+        const navBookings = document.getElementById('navBookings');
+        const navNotifications = document.getElementById('navNotifications');
+        
+        const loginBtn = document.getElementById('loginBtn');
+        const editProfileBtn = document.getElementById('editProfileBtn');
+        const saveProfileBtn = document.getElementById('saveProfileBtn');
+        const closeEditModal = document.getElementById('closeEditModal');
+        
+        const editProfileModal = document.getElementById('editProfileModal');
+        
+        const bookingBadge = document.getElementById('bookingBadge');
+        const notificationBadge = document.getElementById('notificationBadge');
+        
+        // Calendar elements
+        const currentMonthElement = document.getElementById('currentMonth');
+        const prevMonthBtn = document.getElementById('prevMonth');
+        const nextMonthBtn = document.getElementById('nextMonth');
+        const calendarDaysElement = document.getElementById('calendarDays');
+        
+        // Current date
+        let currentDate = new Date();
+        let currentMonth = currentDate.getMonth();
+        let currentYear = currentDate.getFullYear();
+        
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ẩn tất cả các màn hình trừ login
+            hideAllScreens();
+            loginScreen.classList.remove('d-none');
+            
+            // Cập nhật badge thông báo
+            updateBadges();
+            
+            // Thiết lập event listeners
+            setupEventListeners();
+        });
+        
+        function hideAllScreens() {
+            loginScreen.classList.add('d-none');
+            profileScreen.classList.add('d-none');
+            calendarScreen.classList.add('d-none');
+            bookingsScreen.classList.add('d-none');
+            notificationsScreen.classList.add('d-none');
+        }
+        
+        function updateBadges() {
+            // Đếm booking đang chờ xác nhận
+            const pendingBookings = bookings.filter(booking => booking.status === 'pending').length;
+            bookingBadge.textContent = pendingBookings;
+            
+            // Đếm thông báo chưa đọc
+            const unreadNotifications = notifications.filter(notification => !notification.read).length;
+            notificationBadge.textContent = unreadNotifications;
+        }
+        
+        function setupEventListeners() {
+            // Nút đăng nhập
+            loginBtn.addEventListener('click', function() {
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                if (username && password) {
+                    isLoggedIn = true;
+                    hideAllScreens();
+                    profileScreen.classList.remove('d-none');
+                    
+                    // Kích hoạt tab profile
+                    resetNavItems();
+                    navProfile.classList.add('active');
+                    
+                    // Load dữ liệu profile
+                    loadProfileData();
+                } else {
+                    alert('Vui lòng nhập tên đăng nhập và mật khẩu');
+                }
+            });
+            
+            // Thiết lập navigation
+            setupNavigation();
+            
+            // Chỉnh sửa profile
+            editProfileBtn.addEventListener('click', function() {
+                openEditProfileModal();
+            });
+            
+            closeEditModal.addEventListener('click', function() {
+                editProfileModal.style.display = 'none';
+            });
+            
+            saveProfileBtn.addEventListener('click', function() {
+                saveProfileChanges();
+            });
+            
+            // Calendar navigation
+            prevMonthBtn.addEventListener('click', function() {
+                currentMonth--;
+                if (currentMonth < 0) {
+                    currentMonth = 11;
+                    currentYear--;
+                }
+                renderCalendar();
+            });
+            
+            nextMonthBtn.addEventListener('click', function() {
+                currentMonth++;
+                if (currentMonth > 11) {
+                    currentMonth = 0;
+                    currentYear++;
+                }
+                renderCalendar();
+            });
+            
+            // Đóng modal khi click bên ngoài
+            window.addEventListener('click', function(e) {
+                if (e.target === editProfileModal) {
+                    editProfileModal.style.display = 'none';
+                }
+            });
+        }
+        
+        function setupNavigation() {
+            navProfile.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (!isLoggedIn) return showLoginAlert();
+                hideAllScreens();
+                profileScreen.classList.remove('d-none');
+                resetNavItems();
+                this.classList.add('active');
+                loadProfileData();
+            });
+            
+            navCalendar.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (!isLoggedIn) return showLoginAlert();
+                hideAllScreens();
+                calendarScreen.classList.remove('d-none');
+                resetNavItems();
+                this.classList.add('active');
+                renderCalendar();
+            });
+            
+            navBookings.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (!isLoggedIn) return showLoginAlert();
+                hideAllScreens();
+                bookingsScreen.classList.remove('d-none');
+                resetNavItems();
+                this.classList.add('active');
+                renderBookings();
+            });
+            
+            navNotifications.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (!isLoggedIn) return showLoginAlert();
+                hideAllScreens();
+                notificationsScreen.classList.remove('d-none');
+                resetNavItems();
+                this.classList.add('active');
+                renderNotifications();
+            });
+        }
+        
+        function showLoginAlert() {
+            alert('Vui lòng đăng nhập để sử dụng tính năng này');
+            hideAllScreens();
+            loginScreen.classList.remove('d-none');
+        }
+        
+        function resetNavItems() {
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.classList.remove('active');
+            });
+        }
+        
+        function loadProfileData() {
+            document.getElementById('profileName').textContent = currentUser.name;
+            document.getElementById('profileBio').textContent = currentUser.bio;
+            document.getElementById('profileEmail').textContent = currentUser.email;
+            document.getElementById('profilePhone').textContent = currentUser.phone;
+            document.getElementById('profileAddress').textContent = currentUser.address;
+            document.getElementById('profileExperience').textContent = currentUser.experience;
+        }
+        
+        function openEditProfileModal() {
+            document.getElementById('editName').value = currentUser.name;
+            document.getElementById('editBio').value = currentUser.bio;
+            document.getElementById('editEmail').value = currentUser.email;
+            document.getElementById('editPhone').value = currentUser.phone;
+            document.getElementById('editAddress').value = currentUser.address;
+            document.getElementById('editExperience').value = currentUser.experience;
+            
+            editProfileModal.style.display = 'flex';
+        }
+        
+        function saveProfileChanges() {
+            currentUser.name = document.getElementById('editName').value;
+            currentUser.bio = document.getElementById('editBio').value;
+            currentUser.email = document.getElementById('editEmail').value;
+            currentUser.phone = document.getElementById('editPhone').value;
+            currentUser.address = document.getElementById('editAddress').value;
+            currentUser.experience = document.getElementById('editExperience').value;
+            
+            loadProfileData();
+            editProfileModal.style.display = 'none';
+        }
+        
+        function renderCalendar() {
+            // Hiển thị tháng và năm
+            const monthNames = ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", 
+                               "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"];
+            currentMonthElement.textContent = `${monthNames[currentMonth]}, ${currentYear}`;
+            
+            // Lấy ngày đầu tiên của tháng và tổng số ngày trong tháng
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            
+            // Lấy ngày hiện tại để highlight
+            const today = new Date();
+            const isCurrentMonth = today.getMonth() === currentMonth && today.getFullYear() === currentYear;
+            
+            // Xóa các ngày cũ
+            calendarDaysElement.innerHTML = '';
+            
+            // Thêm ô trống cho các ngày trước ngày đầu tiên của tháng
+            for (let i = 0; i < firstDay; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.classList.add('calendar-day');
+                calendarDaysElement.appendChild(emptyDay);
+            }
+            
+            // Thêm các ngày trong tháng
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.classList.add('calendar-day');
+                dayElement.textContent = day;
+                
+                // Highlight ngày hiện tại
+                if (isCurrentMonth && day === today.getDate()) {
+                    dayElement.classList.add('today');
+                }
+                
+                // Kiểm tra xem ngày này có booking không
+                const dateStr = `${day}/${currentMonth + 1}/${currentYear}`;
+                const hasBooking = bookings.some(booking => {
+                    const bookingDateParts = booking.date.split('/');
+                    const bookingDateStr = `${bookingDateParts[0]}/${bookingDateParts[1]}/${bookingDateParts[2]}`;
+                    return bookingDateStr === dateStr;
+                });
+                
+                if (hasBooking) {
+                    dayElement.classList.add('has-booking');
+                }
+                
+                calendarDaysElement.appendChild(dayElement);
+            }
+            
+            // Hiển thị booking hôm nay
+            renderTodayBookings();
+        }
+        
+        function renderTodayBookings() {
+            const todayBookingsElement = document.getElementById('todayBookings');
+            todayBookingsElement.innerHTML = '';
+            
+            const today = new Date();
+            const todayStr = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
+            
+            const todayBookings = bookings.filter(booking => booking.date === todayStr);
+            
+            if (todayBookings.length === 0) {
+                todayBookingsElement.innerHTML = '<div class="text-center" style="padding: 20px; color: #777;">Không có lịch hẹn nào hôm nay</div>';
+                return;
+            }
+            
+            todayBookings.forEach(booking => {
+                const bookingElement = document.createElement('div');
+                bookingElement.classList.add('booking-item');
+                
+                let statusClass = 'status-pending';
+                let statusText = 'Chờ xác nhận';
+                
+                if (booking.status === 'confirmed') {
+                    statusClass = 'status-confirmed';
+                    statusText = 'Đã xác nhận';
+                }
+                
+                bookingElement.innerHTML = `
+                    <div class="booking-header">
+                        <div class="booking-client">${booking.client}</div>
+                        <div class="booking-time">${booking.time}</div>
+                    </div>
+                    <div class="booking-service">${booking.service}</div>
+                    <div class="booking-status ${statusClass}">${statusText}</div>
+                `;
+                
+                todayBookingsElement.appendChild(bookingElement);
+            });
+        }
+        
+        function renderBookings() {
+            const allBookingsElement = document.getElementById('allBookings');
+            allBookingsElement.innerHTML = '';
+            
+            bookings.forEach(booking => {
+                const bookingElement = document.createElement('div');
+                bookingElement.classList.add('booking-item');
+                
+                let statusClass = 'status-pending';
+                let statusText = 'Chờ xác nhận';
+                
+                if (booking.status === 'confirmed') {
+                    statusClass = 'status-confirmed';
+                    statusText = 'Đã xác nhận';
+                }
+                
+                bookingElement.innerHTML = `
+                    <div class="booking-header">
+                        <div class="booking-client">${booking.client}</div>
+                        <div class="booking-time">${booking.date}, ${booking.time}</div>
+                    </div>
+                    <div class="booking-service">${booking.service}</div>
+                    <div class="booking-status ${statusClass}">${statusText}</div>
+                `;
+                
+                allBookingsElement.appendChild(bookingElement);
+            });
+        }
+        
+        function renderNotifications() {
+            const notificationList = document.querySelector('.notification-list');
+            notificationList.innerHTML = '';
+            
+            notifications.forEach(notification => {
+                const notificationElement = document.createElement('div');
+                notificationElement.classList.add('notification-item');
+                
+                if (!notification.read) {
+                    notificationElement.style.backgroundColor = '#f9f9f9';
+                }
+                
+                notificationElement.innerHTML = `
+                    <div class="notification-icon">
+                        <i>!</i>
+                    </div>
+                    <div class="notification-content">
+                        <div>${notification.message}</div>
+                        <div class="notification-time">${notification.time}</div>
+                    </div>
+                `;
+                
+                notificationList.appendChild(notificationElement);
+            });
+            
+            // Đánh dấu tất cả thông báo là đã đọc
+            notifications.forEach(notification => {
+                notification.read = true;
+            });
+            
+            // Cập nhật badge
+            updateBadges();
+        }
+    </script>
 </body>
 </html>
