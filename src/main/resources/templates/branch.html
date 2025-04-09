@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi nhánh - Makeup Artist</title>
+    <style>
+        /* Reset và font chung */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        /* Header */
+        header {
+            background-color: #ff6b81;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        nav {
+            width: 100%;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Main content */
+        main {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #ff6b81;
+        }
+
+        /* Branch cards */
+        .branch-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .branch-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .branch-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .branch-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .branch-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .branch-info {
+            padding: 1.5rem;
+        }
+
+        .branch-info h3 {
+            margin-bottom: 0.5rem;
+            color: #ff6b81;
+        }
+
+        .branch-info p {
+            color: #666;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .branch-info p i {
+            margin-right: 0.5rem;
+            color: #ff6b81;
+        }
+
+        .branch-hours {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed #ddd;
+        }
+
+        .branch-hours p {
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        /* Map container */
+        .map-container {
+            margin-top: 3rem;
+        }
+
+        .map-title {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #ff6b81;
+        }
+
+        #branch-map {
+            width: 100%;
+            height: 400px;
+            border-radius: 10px;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: #333;
+            color: white;
+            margin-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .branch-container {
+                grid-template-columns: 1fr;
+            }
+            
+            #branch-map {
+                height: 300px;
+            }
+        }
+    </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Leaflet CSS for map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body>
+<header>
+    <div class="logo">Makeup Artist</div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Trang chủ</a></li>
+            <li><a href="branches.html">Chi nhánh</a></li>
+            <li><a href="artists.html">Nghệ sĩ</a></li>
+            <li><a href="services.html">Dịch vụ</a></li>
+            <li><a href="booking.html">Đặt lịch</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <h1 class="page-title">Hệ Thống Chi Nhánh</h1>
+    
+    <div class="branch-container">
+        <!-- Trụ sở chính -->
+        <div class="branch-card">
+            <div class="branch-img">
+                <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Trụ sở chính">
+            </div>
+            <div class="branch-info">
+                <h3>Trụ sở chính</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Nguyễn Huệ, Quận 1, TP.HCM</p>
+                <p><i class="fas fa-phone"></i> (028) 3823 4567</p>
+                <p><i class="fas fa-envelope"></i> hq@makeupartist.com</p>
+                <div class="branch-hours">
+                    <p><strong>Giờ làm việc:</strong></p>
+                    <p>Thứ 2 - Thứ 6: 8:00 - 16:00</p>
+                    <p>Thứ 7 - CN: 9:00 - 16:00</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Chi nhánh Quận 1 -->
+        <div class="branch-card">
+            <div class="branch-img">
+                <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Chi nhánh Quận 1">
+            </div>
+            <div class="branch-info">
+                <h3>Chi nhánh Quận 1</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 45 Lê Lợi, Quận 1, TP.HCM</p>
+                <p><i class="fas fa-phone"></i> (028) 3823 4568</p>
+                <p><i class="fas fa-envelope"></i> q1@makeupartist.com</p>
+                <div class="branch-hours">
+                    <p><strong>Giờ làm việc:</strong></p>
+                    <p>Thứ 2 - Chủ nhật: 8:00 - 16:00</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Chi nhánh Quận 3 -->
+        <div class="branch-card">
+            <div class="branch-img">
+                <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Chi nhánh Quận 3">
+            </div>
+            <div class="branch-info">
+                <h3>Chi nhánh Quận 3</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 78 Võ Văn Tần, Quận 3, TP.HCM</p>
+                <p><i class="fas fa-phone"></i> (028) 3823 4569</p>
+                <p><i class="fas fa-envelope"></i> q3@makeupartist.com</p>
+                <div class="branch-hours">
+                    <p><strong>Giờ làm việc:</strong></p>
+                    <p>Thứ 2 - Thứ 6: 8:00 - 16:00</p>
+                    <p>Thứ 7: 8:00 - 17:00</p>
+                    <p>Chủ nhật: Nghỉ</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="map-container">
+        <h2 class="map-title">Bản đồ chi nhánh</h2>
+        <div id="branch-map"></div>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2023 Makeup Artist. All rights reserved.</p>
+</footer>
+
+<!-- Leaflet JS for map -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script>
+    // Initialize map
+    document.addEventListener('DOMContentLoaded', function() {
+        // Coordinates for Ho Chi Minh City
+        const map = L.map('branch-map').setView([10.8231, 106.6297], 13);
+        
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        
+        // Add markers for each branch
+        const branches = [
+            {
+                name: "Trụ sở chính",
+                address: "123 Nguyễn Huệ, Quận 1",
+                coords: [10.7718, 106.7043],
+                phone: "(028) 3823 4567"
+            },
+            {
+                name: "Chi nhánh Quận 1",
+                address: "45 Lê Lợi, Quận 1",
+                coords: [10.7756, 106.7004],
+                phone: "(028) 3823 4568"
+            },
+            {
+                name: "Chi nhánh Quận 3",
+                address: "78 Võ Văn Tần, Quận 3",
+                coords: [10.7865, 106.6896],
+                phone: "(028) 3823 4569"
+            }
+        ];
+        
+        // Add markers to map
+        branches.forEach(branch => {
+            const marker = L.marker(branch.coords).addTo(map);
+            marker.bindPopup(`
+                <b>${branch.name}</b><br>
+                ${branch.address}<br>
+                ĐT: ${branch.phone}
+            `);
+        });
+    });
+</script>
+</body>
+</html>

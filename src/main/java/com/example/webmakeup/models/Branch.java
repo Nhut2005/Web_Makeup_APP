@@ -12,6 +12,21 @@ public class Branch {
     private String address;
     private String phoneNumber;
     private String email;
+    private String weekdayHours;
+    private String weekendHours;
+
+    // Constructor mặc định (bắt buộc với JPA)
+    public Branch() {}
+
+    // Constructor đầy đủ thông tin
+    public Branch(String name, String address, String phoneNumber, String email, String weekdayHours, String weekendHours) {
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.weekdayHours = weekdayHours;
+        this.weekendHours = weekendHours;
+    }
 
     // Getters and Setters
     public Long getId() {
@@ -52,5 +67,21 @@ public class Branch {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getWeekdayHours() {
+        return weekdayHours;
+    }
+
+    public void setWeekdayHours(String weekdayHours) {
+        this.weekdayHours = weekdayHours;
+    }
+
+    public String getWeekendHours() {
+        return weekendHours;
+    }
+
+    public void setWeekendHours(String weekendHours) {
+        this.weekendHours = weekendHours;
     }
 }
