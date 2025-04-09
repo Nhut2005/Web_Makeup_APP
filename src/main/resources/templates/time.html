@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch Làm Việc - Makeup Artist</title>
+    <style>
+        /* Reset và font chung */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        /* Header */
+        header {
+            background-color: #ff6b81;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        nav {
+            width: 100%;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Main content */
+        main {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #ff6b81;
+        }
+
+        /* Working schedule */
+        .schedule-container {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .schedule-info {
+            margin-bottom: 2rem;
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .schedule-table th, 
+        .schedule-table td {
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .schedule-table th {
+            background-color: #ff6b81;
+            color: white;
+        }
+
+        .schedule-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .time-slot {
+            font-weight: bold;
+            color: #ff6b81;
+        }
+
+        .available {
+            color: green;
+            font-weight: bold;
+        }
+
+        .booked {
+            color: red;
+            font-weight: bold;
+        }
+
+        /* Booking form */
+        .booking-form {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #ff6b81;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #ff4757;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: #333;
+            color: white;
+            margin-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .schedule-table {
+                font-size: 0.8rem;
+            }
+            
+            .schedule-table th, 
+            .schedule-table td {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<header>
+    <div class="logo">Makeup Artist</div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Trang chủ</a></li>
+            <li><a href="branches.html">Chi nhánh</a></li>
+            <li><a href="artists.html">Nghệ sĩ</a></li>
+            <li><a href="services.html">Dịch vụ</a></li>
+            <li><a href="schedule.html">Lịch làm việc</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <h1 class="page-title">Lịch Làm Việc</h1>
+    
+    <div class="schedule-container">
+        <div class="schedule-info">
+            <h2>Khung giờ làm việc: 8:00 AM - 4:00 PM</h2>
+            <p>Vui lòng chọn khung giờ phù hợp để đặt lịch với các nghệ sĩ của chúng tôi.</p>
+        </div>
+        
+        <table class="schedule-table">
+            <thead>
+                <tr>
+                    <th>Thời gian</th>
+                    <th>Thứ 2</th>
+                    <th>Thứ 3</th>
+                    <th>Thứ 4</th>
+                    <th>Thứ 5</th>
+                    <th>Thứ 6</th>
+                    <th>Thứ 7</th>
+                    <th>Chủ nhật</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="time-slot">8:00 - 9:00</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="booked">Nghỉ</td>
+                </tr>
+                <tr>
+                    <td class="time-slot">9:00 - 10:00</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="booked">Nghỉ</td>
+                </tr>
+                <tr>
+                    <td class="time-slot">10:00 - 11:00</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="booked">Nghỉ</td>
+                </tr>
+                <tr>
+                    <td class="time-slot">11:00 - 12:00</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="booked">Nghỉ</td>
+                </tr>
+                <tr>
+                    <td class="time-slot">12:00 - 13:00</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="booked">Nghỉ</td>
+                </tr>
+                <tr>
+                    <td class="time-slot">13:00 - 14:00</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="booked">Nghỉ</td>
+                </tr>
+                <tr>
+                    <td class="time-slot">14:00 - 15:00</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="booked">Nghỉ</td>
+                </tr>
+                <tr>
+                    <td class="time-slot">15:00 - 16:00</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="available">Có thể đặt</td>
+                    <td class="booked">Nghỉ</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="booking-form">
+        <h2>Đặt lịch ngay</h2>
+        <form id="bookingForm">
+            <div class="form-group">
+                <label for="booking-date">Ngày đặt lịch</label>
+                <input type="date" id="booking-date" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="booking-time">Giờ đặt lịch (8:00 AM - 4:00 PM)</label>
+                <input type="time" id="booking-time" min="08:00" max="16:00" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="artist">Chọn nghệ sĩ</label>
+                <select id="artist" required>
+                    <option value="">-- Chọn nghệ sĩ --</option>
+                    <option value="artist1">Nguyễn Thị A</option>
+                    <option value="artist2">Trần Văn B</option>
+                    <option value="artist3">Lê Thị C</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="service">Chọn dịch vụ</label>
+                <select id="service" required>
+                    <option value="">-- Chọn dịch vụ --</option>
+                    <option value="bridal">Trang điểm cô dâu</option>
+                    <option value="party">Trang điểm dự tiệc</option>
+                    <option value="daily">Trang điểm hàng ngày</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="btn">Đặt lịch ngay</button>
+        </form>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2023 Makeup Artist. All rights reserved.</p>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set min date for booking
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(today.getDate() + 1);
+        
+        const dd = String(tomorrow.getDate()).padStart(2, '0');
+        const mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
+        const yyyy = tomorrow.getFullYear();
+        
+        document.getElementById('booking-date').min = `${yyyy}-${mm}-${dd}`;
+        
+        // Handle form submission
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const bookingDate = document.getElementById('booking-date').value;
+            const bookingTime = document.getElementById('booking-time').value;
+            const artist = document.getElementById('artist').value;
+            const service = document.getElementById('service').value;
+            
+            // Validate time (8:00 AM - 4:00 PM)
+            if (bookingTime < '08:00' || bookingTime > '16:00') {
+                alert('Vui lòng chọn giờ trong khoảng từ 8:00 AM đến 4:00 PM');
+                return;
+            }
+            
+            // Save booking to localStorage
+            const booking = {
+                date: bookingDate,
+                time: bookingTime,
+                artist: artist,
+                service: service
+            };
+            
+            localStorage.setItem('currentBooking', JSON.stringify(booking));
+            
+            // Redirect to confirmation page
+            alert('Đặt lịch thành công! Chúng tôi sẽ liên hệ với bạn để xác nhận.');
+            // window.location.href = 'confirmation.html';
+        });
+        
+        // Add click event to schedule table cells
+        const availableSlots = document.querySelectorAll('.available');
+        availableSlots.forEach(slot => {
+            slot.addEventListener('click', function() {
+                const timeSlot = this.parentNode.querySelector('.time-slot').textContent;
+                const day = this.cellIndex - 1; // 0 = Monday, 6 = Sunday
+                
+                // Calculate date based on selected day
+                const selectedDate = new Date();
+                const currentDay = selectedDate.getDay(); // 0 = Sunday, 1 = Monday, etc.
+                const daysToAdd = (day - currentDay + 7) % 7;
+                selectedDate.setDate(selectedDate.getDate() + daysToAdd);
+                
+                // Format date and time
+                const formattedDate = selectedDate.toISOString().split('T')[0];
+                const [startTime, endTime] = timeSlot.split(' - ');
+                
+                // Set values in form
+                document.getElementById('booking-date').value = formattedDate;
+                document.getElementById('booking-time').value = startTime;
+                
+                // Scroll to form
+                document.querySelector('.booking-form').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    });
+</script>
+</body>
+</html>
