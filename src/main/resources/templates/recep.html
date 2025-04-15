@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - Hệ thống đặt lịch trang điểm</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .login-container {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .logo {
+            width: 120px;
+            margin-bottom: 1.5rem;
+        }
+        
+        h1 {
+            color: #ff6b81;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .input-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        input:focus {
+            border-color: #ff6b81;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 107, 129, 0.2);
+        }
+        
+        .btn {
+            background: #ff6b81;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 0.5rem;
+        }
+        
+        .btn:hover {
+            background: #ff4757;
+            transform: translateY(-2px);
+        }
+        
+        .forgot-password {
+            display: block;
+            margin-top: 1rem;
+            color: #777;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .forgot-password:hover {
+            color: #ff6b81;
+        }
+        
+        .error-message {
+            color: #ff4757;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Đăng nhập hệ thống Lêễ tân</h1>
+        
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="username">Tên đăng nhập</label>
+                <input type="text" id="username" placeholder="Nhập tên đăng nhập" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="password">Mật khẩu</label>
+                <input type="password" id="password" placeholder="Nhập mật khẩu" required>
+            </div>
+            
+            <button type="submit" class="btn">Đăng nhập</button>
+            <div class="error-message" id="errorMessage">Tên đăng nhập hoặc mật khẩu không đúng</div>
+        </form>
+        
+        <a href="#" class="forgot-password">Quên mật khẩu?</a>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Kiểm tra thông tin đăng nhập
+            if (username === 'letan' && password === '123456') {
+                localStorage.setItem('loggedIn', 'true');
+                localStorage.setItem('username', username);
+                window.location.href = '/letan/recep';
+            } else {
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        });
+        
+        // Kiểm tra nếu đã đăng nhập thì chuyển hướng
+        if (localStorage.getItem('loggedIn') === 'true') {
+            window.location.href = '/letan/recep';
+        }
+    </script>
+</body>
+</html>

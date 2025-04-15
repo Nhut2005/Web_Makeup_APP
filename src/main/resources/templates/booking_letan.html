@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý đặt chỗ - Hệ thống đặt lịch trang điểm</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ff6b81 0%, #ff4757 100%);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff6b81;
+            font-weight: bold;
+        }
+
+        nav {
+            background-color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            background-color: #ff6b81;
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .booking-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-box input {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            min-width: 250px;
+        }
+
+        .btn {
+            background: #ff6b81;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: #ff4757;
+        }
+
+        .btn-secondary {
+            background: #f5f7fa;
+            color: #555;
+        }
+
+        .btn-secondary:hover {
+            background: #e1e5eb;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        th,
+        td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: #ff6b81;
+            color: white;
+            font-weight: 500;
+        }
+
+        tr:hover {
+            background-color: #fff5f7;
+        }
+
+        .status-pending {
+            color: #ffa502;
+            font-weight: 500;
+        }
+
+        .status-confirmed {
+            color: #2ed573;
+            font-weight: 500;
+        }
+
+        .status-cancelled {
+            color: #ff4757;
+            font-weight: 500;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #ff6b81;
+            margin-right: 10px;
+        }
+
+        .action-btn:hover {
+            color: #ff4757;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            color: #ff6b81;
+            font-size: 1.3rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">Makeup Booking System</div>
+        <div class="user-info">
+            <div class="user-avatar">LT</div>
+            <span id="usernameDisplay">Lễ tân</span>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="profile.html">Hồ sơ cá nhân</a></li>
+            <li><a href="booking.html" class="active">Quản lý đặt chỗ</a></li>
+            <li><a href="#" id="logoutBtn">Đăng xuất</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="booking-actions">
+            <div class="search-box">
+                <input type="text" placeholder="Tìm kiếm khách hàng...">
+                <button class="btn">Tìm kiếm</button>
+            </div>
+            <button class="btn" id="addBookingBtn">+ Thêm đặt chỗ</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Mã đặt</th>
+                    <th>Khách hàng</th>
+                    <th>Dịch vụ</th>
+                    <th>Ngày</th>
+                    <th>Giờ</th>
+                    <th>Trạng thái</th>
+                    <th>Địa chỉ</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal" id="bookingModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Thêm đặt chỗ mới</h3>
+                <button class="close-btn" id="closeModalBtn">&times;</button>
+            </div>
+
+            <form id="bookingForm">
+                <div class="form-group">
+                    <label for="customerName">Tên khách hàng</label>
+                    <input type="text" id="customerName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="customerPhone">Số điện thoại</label>
+                    <input type="tel" id="customerPhone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="service">Dịch vụ</label>
+                    <select id="service" required>
+                        <option value="">Chọn dịch vụ</option>
+                        <option value="bridal">Trang điểm cô dâu</option>
+                        <option value="party">Trang điểm dự tiệc</option>
+                        <option value="photo">Trang điểm chụp ảnh</option>
+                        <option value="natural">Trang điểm tự nhiên</option>
+                    </select>
+                </div>
+
+                <div class="form-row" style="display: flex; gap: 15px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label for="bookingDate">Ngày</label>
+                        <input type="date" id="bookingDate" required>
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label for="bookingTime">Giờ</label>
+                        <input type="time" id="bookingTime" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Ghi chú</label>
+                    <textarea id="notes" rows="3"></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelBookingBtn">Hủy</button>
+                    <button type="submit" class="btn">Lưu đặt chỗ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>        // Dữ liệu đặt chỗ (ví dụ) - Cấu trúc mới để phù hợp với dữ liệu dịch vụ
+
+
+        // Dữ liệu nghệ sĩ (ví dụ) - Lấy từ localStorage nếu có
+        let artists = JSON.parse(localStorage.getItem('artists')) || [
+            { id: 'artist1', name: 'Nguyễn Thị Mai (Chuyên trang điểm cô dâu)' },
+            { id: 'artist2', name: 'Trần Minh Anh (Chuyên trang điểm dự tiệc)' },
+            { id: 'artist3', name: 'Lê Thị Hương (Chuyên trang điểm nghệ thuật)' }
+        ];
+
+        // Hiển thị tên người dùng
+        document.getElementById('usernameDisplay').textContent = localStorage.getItem('username') || 'Lễ tân';
+
+        // Xử lý đăng xuất
+        document.getElementById('logoutBtn').addEventListener('click', function () {
+            localStorage.removeItem('loggedIn');
+            localStorage.removeItem('username');
+            window.location.href = '/letan';
+        });
+
+        // Kiểm tra đăng nhập
+        if (localStorage.getItem('loggedIn') !== 'true') {
+            window.location.href = '/letan/recep';
+        }
+
+
+        // Hiển thị danh sách đặt chỗ
+        function renderBookings() {
+            const tbody = document.querySelector('table tbody');
+            tbody.innerHTML = '';
+
+            bookings.forEach(booking => {
+                const tr = document.createElement('tr');
+
+                // Xác định class trạng thái
+                let statusClass = '';
+                let statusText = '';
+                switch (booking.status) {
+                    case 'confirmed':
+                        statusClass = 'status-confirmed';
+                        statusText = 'Đã xác nhận';
+                        break;
+                    case 'pending':
+                        statusClass = 'status-pending';
+                        statusText = 'Chờ xác nhận';
+                        break;
+                    case 'cancelled':
+                        statusClass = 'status-cancelled';
+                        statusText = 'Đã hủy';
+                        break;
+                }
+
+                tr.innerHTML = `
+                <td>#${booking.id}</td>
+                <td>${booking.customerName}</td>
+                <td>${booking.artistName}</td>
+                <td>${booking.serviceName}</td>
+                <td>${booking.date}</td>
+                <td>${booking.time}</td>
+                <td class="${statusClass}">${statusText}</td>
+                <td>
+                    <button class="action-btn edit-btn" data-id="${booking.id}">✏️</button>
+                    <button class="action-btn delete-btn" data-id="${booking.id}">🗑️</button>
+                </td>
+            `;
+
+                tbody.appendChild(tr);
+            });
+
+            // Thêm sự kiện cho các nút thao tác
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const bookingId = this.getAttribute('data-id');
+                    editBooking(bookingId);
+                });
+            });
+
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const bookingId = this.getAttribute('data-id');
+                    deleteBooking(bookingId);
+                });
+            });
+        }
+
+        // Xử lý modal đặt chỗ
+        const modal = document.getElementById('bookingModal');
+        const addBtn = document.getElementById('addBookingBtn');
+        const closeBtn = document.getElementById('closeModalBtn');
+        const cancelBtn = document.getElementById('cancelBookingBtn');
+        const bookingForm = document.getElementById('bookingForm');
+
+        let isEditing = false;
+        let currentBookingId = null;
+
+        // Hàm để thêm options nghệ sĩ vào select trong modal
+        function populateArtistOptions() {
+            const artistSelect = document.getElementById('artist');
+            artistSelect.innerHTML = '<option value="">-- Chọn nghệ sĩ --</option>';
+            artists.forEach(artist => {
+                const option = document.createElement('option');
+                option.value = artist.id;
+                option.textContent = artist.name;
+                artistSelect.appendChild(option);
+            });
+        }
+
+        addBtn.addEventListener('click', function () {
+            isEditing = false;
+            currentBookingId = null;
+            document.querySelector('.modal-title').textContent = 'Thêm đặt chỗ mới';
+            bookingForm.reset();
+            populateArtistOptions(); // Load danh sách nghệ sĩ khi mở modal thêm
+            modal.style.display = 'flex';
+        });
+
+        closeBtn.addEventListener('click', closeModal);
+        cancelBtn.addEventListener('click', closeModal);
+
+        // Đóng modal khi click bên ngoài
+        window.addEventListener('click', function (e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        // Xử lý form đặt chỗ
+        bookingForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const customerName = document.getElementById('customerName').value;
+            const customerPhone = document.getElementById('customerPhone').value;
+            const artistId = document.getElementById('artist').value;
+            const selectedArtist = artists.find(a => a.id === artistId);
+            const artistName = selectedArtist ? selectedArtist.name : '';
+            const serviceValue = document.getElementById('service').value;
+            const serviceName = getServiceNameFromValue(serviceValue);
+            const bookingDate = document.getElementById('bookingDate').value;
+            const bookingTime = document.getElementById('bookingTime').value;
+            const notes = document.getElementById('notes').value;
+            const address = document.getElementById('address').value;
+
+            // Định dạng ngày từ input date sang dd/mm/yyyy
+            const formattedDate = formatDate(bookingDate);
+
+            // Định dạng thời gian
+            const formattedTime = bookingTime.substring(0, 5);
+
+            if (isEditing && currentBookingId) {
+                // Cập nhật đặt chỗ hiện có
+                const index = bookings.findIndex(b => b.id === currentBookingId);
+                if (index !== -1) {
+                    bookings[index] = {
+                        ...bookings[index],
+                        customerName,
+                        phone: customerPhone,
+                        artistId,
+                        artistName,
+                        service: serviceValue,
+                        serviceName,
+                        date: formattedDate,
+                        time: formattedTime,
+                        notes,
+                        address
+                    };
+                }
+            } else {
+                // Tạo ID mới
+                const newId = 'BK' + String(bookings.length + 1).padStart(3, '0');
+
+                // Thêm đặt chỗ mới
+                bookings.push({
+                    id: newId,
+                    customerName,
+                    phone: customerPhone,
+                    artistId,
+                    artistName,
+                    service: serviceValue,
+                    serviceName,
+                    date: formattedDate,
+                    time: formattedTime,
+                    status: 'pending',
+                    notes,
+                    address
+                });
+            }
+
+            renderBookings();
+            alert(isEditing ? 'Cập nhật đặt chỗ thành công!' : 'Đặt chỗ thành công!');
+            closeModal();
+        });
+
+        // Chỉnh sửa đặt chỗ
+        function editBooking(bookingId) {
+            const booking = bookings.find(b => b.id === bookingId);
+            if (!booking) return;
+
+            isEditing = true;
+            currentBookingId = bookingId;
+
+            document.querySelector('.modal-title').textContent = 'Chỉnh sửa đặt chỗ';
+
+            // Điền thông tin vào form
+            document.getElementById('customerName').value = booking.customerName;
+            document.getElementById('customerPhone').value = booking.phone;
+
+            // Chọn đúng nghệ sĩ
+            populateArtistOptions();
+            document.getElementById('artist').value = booking.artistId;
+
+            // Chọn đúng dịch vụ
+            document.getElementById('service').value = booking.service;
+
+            // Định dạng ngày từ dd/mm/yyyy sang<ctrl3348>-mm-dd để input date hiểu
+            const dateParts = booking.date.split('/');
+            const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+            document.getElementById('bookingDate').value = formattedDate;
+
+            document.getElementById('bookingTime').value = booking.time + ':00';
+            document.getElementById('notes').value = booking.notes || '';
+            document.getElementById('address').value = booking.address || '';
+
+            modal.style.display = 'flex';
+        }
+
+        // Xóa đặt chỗ
+        function deleteBooking(bookingId) {
+            if (confirm('Bạn có chắc chắn muốn xóa đặt chỗ này?')) {
+                bookings = bookings.filter(b => b.id !== bookingId);
+                renderBookings();
+                alert('Đã xóa đặt chỗ');
+            }
+        }
+
+        // Hàm định dạng ngày từ<ctrl3348>-mm-dd sang dd/mm/yyyy
+        function formatDate(dateString) {
+            if (!dateString) return '';
+
+            const date = new Date(dateString);
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+
+            return `${day}/${month}/${year}`;
+        }
+
+        // Hàm lấy tên dịch vụ từ value
+        function getServiceNameFromValue(serviceValue) {
+            const serviceSelect = document.getElementById('service');
+            for (let i = 0; i < serviceSelect.options.length; i++) {
+                if (serviceSelect.options[i].value === serviceValue) {
+                    return serviceSelect.options[i].text;
+                }
+            }
+            return serviceValue;
+        }
+
+        // Tìm kiếm đặt chỗ
+        document.querySelector('.search-box button').addEventListener('click', function () {
+            const searchTerm = document.querySelector('.search-box input').value.toLowerCase();
+
+            if (!searchTerm) {
+                renderBookings();
+                return;
+            }
+
+            const filteredBookings = bookings.filter(booking =>
+                booking.customerName.toLowerCase().includes(searchTerm) ||
+                booking.phone.includes(searchTerm) ||
+                booking.id.toLowerCase().includes(searchTerm) ||
+                booking.artistName.toLowerCase().includes(searchTerm) ||
+                booking.serviceName.toLowerCase().includes(searchTerm)
+            );
+
+            const tbody = document.querySelector('table tbody');
+            tbody.innerHTML = '';
+
+            filteredBookings.forEach(booking => {
+                const tr = document.createElement('tr');
+
+                let statusClass = '';
+                let statusText = '';
+                switch (booking.status) {
+                    case 'confirmed':
+                        statusClass = 'status-confirmed';
+                        statusText = 'Đã xác nhận';
+                        break;
+                    case 'pending':
+                        statusClass = 'status-pending';
+                        statusText = 'Chờ xác nhận';
+                        break;
+                    case 'cancelled':
+                        statusClass = 'status-cancelled';
+                        statusText = 'Đã hủy';
+                        break;
+                }
+
+                tr.innerHTML = `
+                <td>#${booking.id}</td>
+                <td>${booking.customerName}</td>
+                <td>${booking.artistName}</td>
+                <td>${booking.serviceName}</td>
+                <td>${booking.date}</td>
+                <td>${booking.time}</td>
+                <td class="${statusClass}">${statusText}</td>
+                <td>
+                    <button class="action-btn edit-btn" data-id="${booking.id}">✏️</button>
+                    <button class="action-btn delete-btn" data-id="${booking.id}">🗑️</button>
+                </td>
+            `;
+
+                tbody.appendChild(tr);
+            });
+
+            // Thêm lại sự kiện cho các nút thao tác
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const bookingId = this.getAttribute('data-id');
+                    editBooking(bookingId);
+                });
+            });
+
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const bookingId = this.getAttribute('data-id');
+                    deleteBooking(bookingId);
+                });
+            });
+        });
+
+        // Khởi tạo danh sách đặt chỗ khi trang được tải
+        document.addEventListener('DOMContentLoaded', function () {
+            // Kiểm tra nếu có dữ liệu trong localStorage thì lấy ra
+            const savedBookings = localStorage.getItem('makeupBookings');
+            if (savedBookings) {
+                bookings = JSON.parse(savedBookings);
+            }
+
+            renderBookings();
+        });
+
+        // Lưu danh sách đặt chỗ vào localStorage khi trang bị đóng
+        window.addEventListener('beforeunload', function () {
+            localStorage.setItem('makeupBookings', JSON.stringify(bookings));
+        })
+        document.getElementById('service-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Lấy thông tin khách hàng đã lưu
+            const customerInfo = JSON.parse(localStorage.getItem('customerInfo'));
+
+            // Lấy thông tin dịch vụ
+            const serviceInfo = {
+                artistId: document.getElementById('artist').value,
+                service: document.getElementById('service').value,
+                date: document.getElementById('date').value,
+                time: document.getElementById('time').value,
+                notes: document.getElementById('notes').value
+            };
+
+            // Lấy thông tin nghệ sĩ (từ mảng artists đã có)
+            const selectedArtist = artists.find(a => a.id === serviceInfo.artistId);
+            const artistName = selectedArtist ? selectedArtist.name : '';
+
+            // Lấy tên dịch vụ hiển thị
+            const serviceSelect = document.getElementById('service');
+            const selectedServiceOption = serviceSelect.options[serviceSelect.selectedIndex];
+            const serviceName = selectedServiceOption ? selectedServiceOption.textContent : serviceInfo.service;
+
+            // Tạo đối tượng thông tin đặt chỗ hoàn chỉnh
+            const bookingData = {
+                customerName: customerInfo ? customerInfo.fullname : '',
+                phone: customerInfo ? customerInfo.phone : '',
+                address: customerInfo && customerInfo.bookingType === 'home' ? customerInfo.address : (customerInfo && customerInfo.bookingType === 'branch' ? getBranchName(customerInfo.branch) : ''),
+                artistId: serviceInfo.artistId,
+                artistName: artistName,
+                service: serviceInfo.service,
+                serviceName: serviceName,
+                date: formatDate(serviceInfo.date), // Sử dụng hàm formatDate nếu cần
+                time: serviceInfo.time,
+                notes: serviceInfo.notes,
+                status: 'pending' // Trạng thái mặc định khi đặt
+            };
+
+            // Lưu thông tin đặt chỗ vào localStorage
+            let existingBookings = JSON.parse(localStorage.getItem('makeupBookings')) || [];
+            const newBookingId = 'BK' + String(existingBookings.length + 1).padStart(3, '0');
+            bookingData.id = newBookingId;
+            existingBookings.push(bookingData);
+            localStorage.setItem('makeupBookings', JSON.stringify(existingBookings));
+
+            alert('Thông tin đặt chỗ đã được lưu.');
+            window.location.href = '/booking.html'; // Chuyển đến trang quản lý đặt chỗ
+        });
+
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            const date = new Date(dateString);
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
+        function getBranchName(branchCode) {
+            const branches = {
+                'hq': 'Trụ sở chính - 123 Nguyễn Huệ',
+                'q1': 'Quận 1 - 45 Lê Lợi',
+                'q3': 'Quận 3 - 78 Võ Văn Tần'
+            };
+            return branches[branchCode] || branchCode;
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            // Kiểm tra nếu có dữ liệu trong localStorage thì lấy ra
+            const savedBookings = localStorage.getItem('makeupBookings');
+            if (savedBookings) {
+                bookings = JSON.parse(savedBookings);
+            }
+
+            renderBookings();
+        });
+    </script>
+</body>
+
+</html>
