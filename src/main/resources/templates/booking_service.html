@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý đặt chỗ - Hệ thống đặt lịch trang điểm</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ff6b81 0%, #ff4757 100%);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff6b81;
+            font-weight: bold;
+        }
+
+        nav {
+            background-color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            background-color: #ff6b81;
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .booking-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-box input {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            min-width: 250px;
+        }
+
+        .btn {
+            background: #ff6b81;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: #ff4757;
+        }
+
+        .btn-secondary {
+            background: #f5f7fa;
+            color: #555;
+        }
+
+        .btn-secondary:hover {
+            background: #e1e5eb;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        th,
+        td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: #ff6b81;
+            color: white;
+            font-weight: 500;
+        }
+
+        tr:hover {
+            background-color: #fff5f7;
+        }
+
+        .status-pending {
+            color: #ffa502;
+            font-weight: 500;
+        }
+
+        .status-confirmed {
+            color: #2ed573;
+            font-weight: 500;
+        }
+
+        .status-cancelled {
+            color: #ff4757;
+            font-weight: 500;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #ff6b81;
+            margin-right: 10px;
+        }
+
+        .action-btn:hover {
+            color: #ff4757;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            color: #ff6b81;
+            font-size: 1.3rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 1.5rem;
+        }
+
+        /* Thêm hiệu ứng cho tiêu đề */
+        h2 {
+            font-size: 1.5rem;
+            color: #ff6b81;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid #ff6b81;
+            padding-left: 10px;
+        }
+
+        /* Hiển thị thông tin khách hàng */
+        .customer-info {
+            background-color: #fff0f3;
+            padding: 0.5rem 1rem;
+            border-left: 5px solid #ff6b81;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(255, 107, 129, 0.1);
+            color: #444;
+        }
+
+        /* Tô điểm lại khung form */
+        form#service-form {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-top: 1rem;
+        }
+
+        /* Giao diện input & select nhất quán */
+        form input,
+        form select,
+        form textarea {
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        form input:focus,
+        form select:focus,
+        form textarea:focus {
+            border-color: #ff6b81;
+            box-shadow: 0 0 0 3px rgba(255, 107, 129, 0.2);
+            outline: none;
+        }
+
+        /* Nút quay lại có viền */
+        .btn-back {
+            background: transparent;
+            color: #ff6b81;
+            border: 1px solid #ff6b81;
+        }
+
+        .btn-back:hover {
+            background: #ffe6e9;
+        }
+
+        /* Responsive nhẹ */
+        @media (max-width: 768px) {
+            .form-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .form-actions button {
+                width: 100%;
+            }
+
+            .search-box {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">Makeup Booking System</div>
+        <div class="user-info">
+            <div class="user-avatar">LT</div>
+            <span id="usernameDisplay">Lễ tân</span>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/letan/recep">Hồ sơ cá nhân</a></li>
+            <li><a href="/letan/booking" class="active">Quản lý đặt chỗ</a></li>
+            <li><a href="/letan" id="logoutBtn">Đăng xuất</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="order-details" id="orderDetailsDisplay"></div>
+
+        <div class="booking-actions">
+            <div class="search-box">
+                <input type="text" placeholder="Tìm kiếm khách hàng...">
+                <button class="btn">Tìm kiếm</button>
+            </div>
+            <button class="btn" id="addBookingBtn">+ Thêm đặt chỗ</button>
+        </div>
+        <main>
+            <div class="container">
+                <h2>Chọn dịch vụ</h2>
+
+                <div class="customer-info" id="customer-info-display">
+                    <!-- Thông tin khách hàng sẽ được hiển thị ở đây -->
+                </div>
+
+                <form id="service-form">
+                    <div class="form-group">
+                        <label for="artist">Nghệ sĩ</label>
+                        <select id="artist" required>
+                            <option value="">-- Chọn nghệ sĩ --</option>
+                            <option value="artist1">Nguyễn Thị Mai (Chuyên trang điểm cô dâu)</option>
+                            <option value="artist2">Trần Minh Anh (Chuyên trang điểm dự tiệc)</option>
+                            <option value="artist3">Lê Thị Hương (Chuyên trang điểm nghệ thuật)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="service">Dịch vụ</label>
+                        <select id="service" required>
+                            <option value="">-- Chọn dịch vụ --</option>
+                            <option value="bridal">Trang điểm cô dâu (2.000.000đ)</option>
+                            <option value="party">Trang điểm dự tiệc (1.200.000đ)</option>
+                            <option value="daily">Trang điểm nghệ thuật (3.000.000đ)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">Ngày</label>
+                        <input type="date" id="date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="time">Giờ (8:00 AM - 4:00 PM)</label>
+                        <input type="time" id="time" min="08:00" max="16:00" required>
+                        <small class="error-message" id="time-error" style="color: red; display: none;">Vui lòng chọn
+                            giờ từ
+                            8:00 đến 16:00</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notes">Ghi chú đặc biệt</label>
+                        <textarea id="notes" placeholder="Dị ứng mỹ phẩm, yêu cầu riêng..."></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-back" id="back-btn">Quay lại</button>
+                        <button type="submit" class="btn">Tiếp tục thanh toán</button>
+                    </div>
+                </form>
+            </div>
+
+            <script>
+
+                document.addEventListener('DOMContentLoaded', function () {
+                    // Lấy thông tin khách hàng từ localStorage
+                    const customerInfo = JSON.parse(localStorage.getItem('customerInfo'));
+
+                    // Hiển thị thông tin khách hàng
+                    if (customerInfo) {
+                        const displayDiv = document.getElementById('customer-info-display');
+                        let html = `
+                    <p><strong>Họ tên:</strong> ${customerInfo.fullname}</p>
+                    <p><strong>SĐT:</strong> ${customerInfo.phone}</p>
+                `;
+
+                        if (customerInfo.bookingType === 'branch') {
+                            html += `<p><strong>Đến chi nhánh:</strong> ${getBranchName(customerInfo.branch)}</p>`;
+                        } else {
+                            html += `<p><strong>Địa chỉ:</strong> ${customerInfo.address}</p>`;
+                        }
+
+                        displayDiv.innerHTML = html;
+                    }
+
+                    // Set min date cho input date
+                    const dateInput = document.getElementById('date');
+                    const today = new Date().toISOString().split('T')[0];
+                    dateInput.min = today;
+
+                    // Xử lý nút quay lại
+                    document.getElementById('back-btn').addEventListener('click', function () {
+                        window.location.href = 'customer-info.html';
+                    });
+
+                    // Xử lý submit form
+                    document.getElementById('service-form').addEventListener('submit', function (e) {
+                        e.preventDefault();
+
+                        // Lưu thông tin dịch vụ vào localStorage
+                        const serviceInfo = {
+                            artist: document.getElementById('artist').value,
+                            service: document.getElementById('service').value,
+                            date: document.getElementById('date').value,
+                            time: document.getElementById('time').value,
+                            notes: document.getElementById('notes').value
+                        };
+
+                        localStorage.setItem('serviceInfo', JSON.stringify(serviceInfo));
+
+                        // Chuyển đến trang thanh toán (có thể thêm sau)
+                        alert('Thông tin đã được lưu. Chuyển đến trang thanh toán...');
+                        // window.location.href = 'payment.html';
+                    });
+
+                    function getBranchName(branchCode) {
+                        const branches = {
+                            'hq': 'Trụ sở chính - 123 Nguyễn Huệ',
+                            'q1': 'Quận 1 - 45 Lê Lợi',
+                            'q3': 'Quận 3 - 78 Võ Văn Tần'
+                        };
+                        return branches[branchCode] || branchCode;
+                    }
+                });
+            </script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const form = document.getElementById('customer-info-form');
+                    const bookingTypeRadios = document.querySelectorAll('input[name="booking-type"]');
+                    const branchSelection = document.getElementById('branch-selection');
+                    const addressInput = document.getElementById('address-input');
+
+                    // Xử lý chọn loại đặt lịch
+                    bookingTypeRadios.forEach(radio => {
+                        radio.addEventListener('change', function () {
+                            if (this.value === 'branch') {
+                                branchSelection.style.display = 'block';
+                                addressInput.style.display = 'none';
+                            } else {
+                                branchSelection.style.display = 'none';
+                                addressInput.style.display = 'block';
+                            }
+                        });
+                    });
+
+                    // Gợi ý chi nhánh gần nhất (demo)
+                    document.getElementById('locate-branch').addEventListener('click', function () {
+                        alert('Đang xác định vị trí của bạn...');
+                        document.getElementById('branch').value = 'q1';
+                    });
+
+                    // Xử lý submit form
+                    form.addEventListener('submit', function (e) {
+                        e.preventDefault();
+
+                        // Lưu thông tin khách hàng vào localStorage
+                        const customerInfo = {
+                            fullname: document.getElementById('fullname').value,
+                            phone: document.getElementById('phone').value,
+                            email: document.getElementById('email').value,
+                            bookingType: document.querySelector('input[name="booking-type"]:checked').value,
+                            branch: document.getElementById('branch').value,
+                            address: document.getElementById('home-address').value
+                        };
+
+                        localStorage.setItem('customerInfo', JSON.stringify(customerInfo));
+
+                        // Chuyển sang trang chọn dịch vụ
+                        window.location.href = '/booking-service';
+                    });
+                });
+                // Thêm vào phần script hiện có
+                document.getElementById('time').addEventListener('change', function () {
+                    const timeInput = this.value;
+                    const errorElement = document.getElementById('time-error');
+
+                    if (timeInput < '08:00' || timeInput > '16:00') {
+                        errorElement.style.display = 'block';
+                        this.setCustomValidity('Vui lòng chọn giờ từ 8:00 đến 16:00');
+                    } else {
+                        errorElement.style.display = 'none';
+                        this.setCustomValidity('');
+                    }
+                });
+
+            </script>
+        </main>
+
+        <footer>
+            <p>&copy; 2023 Makeup Artist. All rights reserved.</p>
+        </footer>
+        <script>
+            // Trong trang <main>, sau khi thu thập đầy đủ thông tin
+            document.getElementById('service-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const customerInfo = JSON.parse(localStorage.getItem('customerInfo'));
+                const serviceInfo = {
+                    artist: document.getElementById('artist').value,
+                    service: document.getElementById('service').value,
+                    date: document.getElementById('date').value,
+                    time: document.getElementById('time').value,
+                    notes: document.getElementById('notes').value
+                };
+
+                const selectedArtist = document.getElementById('artist').options[document.getElementById('artist').selectedIndex].textContent;
+                const selectedService = document.getElementById('service').options[document.getElementById('service').selectedIndex].textContent.split('(')[0].trim(); // Lấy tên dịch vụ
+
+                const orderDetails = {
+                    fullname: customerInfo.fullname,
+                    phone: customerInfo.phone,
+                    bookingType: customerInfo.bookingType,
+                    branch: customerInfo.branch,
+                    address: customerInfo.address,
+                    artistId: serviceInfo.artist,
+                    artistName: selectedArtist,
+                    serviceValue: serviceInfo.service,
+                    serviceName: selectedService,
+                    date: formatDate(serviceInfo.date), // Sử dụng hàm formatDate của bạn
+                    time: serviceInfo.time.substring(0, 5), // Lấy giờ:phút
+                    notes: serviceInfo.notes,
+                    totalPayment: getServicePrice(serviceInfo.service) // Hàm lấy giá dịch vụ (cần định nghĩa)
+                    // Có thể thêm các thông tin khác như mã giảm giá nếu có
+                };
+
+                localStorage.setItem('currentOrder', JSON.stringify(orderDetails));
+
+                alert('Thông tin đơn hàng đã được lưu.');
+                // window.location.href = 'payment.html'; // Chuyển đến trang thanh toán hoặc trang hiển thị chi tiết
+            });
+
+            function getServicePrice(serviceValue) {
+                switch (serviceValue) {
+                    case 'bridal':
+                        return 2000000;
+                    case 'party':
+                        return 1200000;
+                    case 'daily':
+                        return 3000000;
+                    default:
+                        return 0;
+                }
+            }
+
+            function formatDate(dateString) {
+                if (!dateString) return '';
+                const date = new Date(dateString);
+                const day = String(date.getDate()).padStart(2, '0');
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const year = date.getFullYear();
+                return `${day}/${month}/${year}`;
+            }
+
+            function getBranchName(branchCode) {
+                const branches = {
+                    'hq': 'Trụ sở chính - 123 Nguyễn Huệ',
+                    'q1': 'Quận 1 - 45 Lê Lợi',
+                    'q3': 'Quận 3 - 78 Võ Văn Tần'
+                };
+                return branches[branchCode] || branchCode;
+            }
+        </script>
+        <script>
+
+            // Thêm options cho select nghệ sĩ và xử lý submit
+            document.addEventListener('DOMContentLoaded', function () {
+                const artists = JSON.parse(localStorage.getItem('artists'));
+                const artistSelect = document.getElementById('artist');
+
+                // Kiểm tra artist từ URL parameter
+                const urlParams = new URLSearchParams(window.location.search);
+                const artistId = urlParams.get('artist');
+
+                if (artists) {
+                    artists.forEach(artist => {
+                        const option = document.createElement('option');
+                        option.value = artist.id;
+                        option.textContent = artist.name;
+                        artistSelect.appendChild(option);
+
+                        if (artist.id == artistId) {
+                            option.selected = true;
+                        }
+                    });
+                } else {
+                    alert('Không tìm thấy thông tin nghệ sĩ.');
+                }
+
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                document.getElementById('date').valueAsDate = tomorrow;
+
+                document.getElementById('booking-form').addEventListener('submit', function (event) {
+                    event.preventDefault();
+
+                    const artistId = document.getElementById('artist').value;
+                    const service = document.getElementById('service').value;
+                    const date = document.getElementById('date').value;
+                    const time = document.getElementById('time').value;
+                    const notes = document.getElementById('notes').value;
+                    const address = document.getElementById('address').value;
+
+                    if (!artistId || !service || !date || !time || !address) {
+                        alert('Vui lòng điền đầy đủ thông tin.');
+                        return;
+                    }
+
+                    const artist = artists.find(a => a.id == artistId);
+                    const artistName = artist ? artist.name : "Không xác định";
+
+                    const bookingData = {
+                        artistId: artistId,
+                        artistName: artistName,
+                        service: service,
+                        date: date,
+                        time: time,
+                        notes: notes,
+                        address: address
+                    };
+
+                    localStorage.setItem('currentBooking', JSON.stringify(bookingData));
+                    window.location.href = 'payment.html';
+                });
+            });
+            // Thay thế đoạn code submit form hiện tại bằng:
+            document.getElementById('service-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // Lưu thông tin dịch vụ vào localStorage
+                const serviceInfo = {
+                    artist: document.getElementById('artist').value,
+                    service: document.getElementById('service').value,
+                    date: document.getElementById('date').value,
+                    time: document.getElementById('time').value,
+                    notes: document.getElementById('notes').value
+                };
+
+                localStorage.setItem('serviceInfo', JSON.stringify(serviceInfo));
+
+                // Chuyển đến trang thanh toán
+                window.location.href = '/letan/payment';
+
+            });
+        </script>
+</body>
+
+</html>

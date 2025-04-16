@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý đặt chỗ - Hệ thống đặt lịch trang điểm</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ff6b81 0%, #ff4757 100%);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff6b81;
+            font-weight: bold;
+        }
+
+        nav {
+            background-color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            background-color: #ff6b81;
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .booking-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-box input {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            min-width: 250px;
+        }
+
+        .btn {
+            background: #ff6b81;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: #ff4757;
+        }
+
+        .btn-secondary {
+            background: #f5f7fa;
+            color: #555;
+        }
+
+        .btn-secondary:hover {
+            background: #e1e5eb;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        th,
+        td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: #ff6b81;
+            color: white;
+            font-weight: 500;
+        }
+
+        tr:hover {
+            background-color: #fff5f7;
+        }
+
+        .status-pending {
+            color: #ffa502;
+            font-weight: 500;
+        }
+
+        .status-confirmed {
+            color: #2ed573;
+            font-weight: 500;
+        }
+
+        .status-cancelled {
+            color: #ff4757;
+            font-weight: 500;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #ff6b81;
+            margin-right: 10px;
+        }
+
+        .action-btn:hover {
+            color: #ff4757;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            color: #ff6b81;
+            font-size: 1.3rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 1.5rem;
+        }
+
+        .booking-summary {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .summary-item h3 {
+            margin-bottom: 0.5rem;
+            color: #ff6b81;
+            font-size: 1.1rem;
+        }
+
+        .summary-item p {
+            margin-bottom: 0.3rem;
+            color: #555;
+        }
+
+        .price-summary {
+            grid-column: span 2;
+            background-color: #fff7f8;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid #ffd6dc;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+            color: #444;
+        }
+
+        .price-row.total {
+            font-weight: bold;
+            font-size: 1.1rem;
+            border-top: 1px solid #ddd;
+            padding-top: 1rem;
+        }
+
+        .promo-section {
+            margin-top: 2rem;
+            background: #fff7f8;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px dashed #ff6b81;
+        }
+
+        .promo-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        #promo-code {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        #apply-promo {
+            background: #ff6b81;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        #apply-promo:hover {
+            background: #ff4757;
+        }
+
+        #promo-message {
+            margin-top: 10px;
+            font-size: 0.95rem;
+            color: #2ed573;
+        }
+
+        .btn-confirm {
+            margin-top: 2rem;
+            background-color: #2ed573;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-confirm:hover {
+            background-color: #1fa463;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            color: #888;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">Makeup Booking System</div>
+        <div class="user-info">
+            <div class="user-avatar">LT</div>
+            <span id="usernameDisplay">Lễ tân</span>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/letan/recep">Hồ sơ cá nhân</a></li>
+            <li><a href="/letan/booking" class="active">Quản lý đặt chỗ</a></li>
+            <li><a href="/letan" id="logoutBtn">Đăng xuất</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="order-details" id="orderDetailsDisplay"></div>
+
+        <div class="booking-actions">
+            <div class="search-box">
+                <input type="text" placeholder="Tìm kiếm khách hàng...">
+                <button class="btn">Tìm kiếm</button>
+            </div>
+            <button class="btn" id="addBookingBtn">+ Thêm đặt chỗ</button>
+        </div>
+        <main>
+            <div class="container">
+                <h2>Xác nhận thanh toán</h2>
+
+                <div class="booking-summary">
+                    <div class="summary-item">
+                        <h3>Thông tin khách hàng</h3>
+                        <p id="customer-name">Đang tải...</p>
+                        <p id="customer-phone">Đang tải...</p>
+                        <p id="customer-location">Đang tải...</p>
+                    </div>
+
+                    <div class="summary-item">
+                        <h3>Thông tin dịch vụ</h3>
+                        <p id="artist-name">Đang tải...</p>
+                        <p id="service-type">Đang tải...</p>
+                        <p id="booking-date">Đang tải...</p>
+                        <p id="booking-time">Đang tải...</p>
+                    </div>
+
+                    <div class="price-summary">
+                        <div class="price-row">
+                            <span>Giá dịch vụ</span>
+                            <span id="service-price">0 đ</span>
+                        </div>
+                        <div class="price-row">
+                            <span>Phí di chuyển (nếu có)</span>
+                            <span id="transport-fee">0 đ</span>
+                        </div>
+                        <div class="price-row" id="discount-row" style="display: none;">
+                            <span>Giảm giá</span>
+                            <span id="discount-amount">-0 đ</span>
+                        </div>
+                        <div class="price-row total">
+                            <span>Tổng cộng</span>
+                            <span id="total-price">0 đ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="promo-section">
+                    <div class="promo-input">
+                        <input type="text" id="promo-code" placeholder="Nhập mã giảm giá">
+                        <button id="apply-promo">Áp dụng</button>
+                    </div>
+                    <p id="promo-message"></p>
+                </div>
+
+                <button class="btn-confirm" id="confirm-payment">Xác nhận thanh toán</button>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2023 Makeup Artist. All rights reserved.</p>
+        </footer>
+        <script>
+            // Cập nhật hàm checkLoginStatus
+            function checkLoginStatus() {
+                const currentUser = localStorage.getItem('currentUser');
+                const userMenu = document.querySelector('.user-menu');
+                const loginLink = document.querySelector('nav ul li a[href="/login"]'); // Assuming you have a login link
+                const registerLink = document.querySelector('nav ul li a[href="/register"]'); // Assuming you have a register link
+                const greetingTextElement = document.querySelector('.greeting-text');
+                const dropdownMenu = document.querySelector('.dropdown-menu');
+
+                if (currentUser) {
+                    // Cập nhật giao diện người dùng đã đăng nhập
+                    userMenu.style.display = 'flex';
+                    if (loginLink) loginLink.style.display = 'none';
+                    if (registerLink) registerLink.style.display = 'none';
+                    try {
+                        const userData = JSON.parse(currentUser);
+                        if (userData && userData.username) {
+                            greetingTextElement.textContent = `Xin chào, ${userData.username}`;
+                            // You might want to update the dropdown menu items based on login status
+                            dropdownMenu.innerHTML = `
+                        <li><a href="/tai-khoan">👤 Tài khoản</a></li>
+                        <li><a href="/quan-ly-don">📋 Quản lý đơn đặt dịch vụ</a></li>
+                        <li><a href="#" id="logout-link">Đăng xuất</a></li>
+                    `;
+                            document.getElementById('logout-link').addEventListener('click', logout);
+                        } else {
+                            greetingTextElement.textContent = 'Xin chào'; // Default greeting if username is missing
+                            dropdownMenu.innerHTML = `
+                        <li><a href="/tai-khoan">👤 Tài khoản</a></li>
+                        <li><a href="/quan-ly-don">📋 Quản lý đơn đặt dịch vụ</a></li>
+                        <li><a href="#" id="logout-link">Đăng xuất</a></li>
+                    `;
+                            document.getElementById('logout-link').addEventListener('click', logout);
+                        }
+                    } catch (e) {
+                        console.error("Error parsing currentUser from localStorage:", e);
+                        greetingTextElement.textContent = 'Xin chào'; // Fallback if parsing fails
+                        dropdownMenu.innerHTML = `
+                    <li><a href="/tai-khoan">👤 Tài khoản</a></li>
+                    <li><a href="/quan-ly-don">📋 Quản lý đơn đặt dịch vụ</a></li>
+                    <li><a href="#" id="logout-link">Đăng xuất</a></li>
+                `;
+                        document.getElementById('logout-link').addEventListener('click', logout);
+                    }
+                } else {
+                    userMenu.style.display = 'none';
+                    if (loginLink) loginLink.style.display = 'flex';
+                    if (registerLink) registerLink.style.display = 'flex';
+                    greetingTextElement.textContent = 'Xin chào'; // Default when not logged in
+                    dropdownMenu.innerHTML = `
+                <li><a href="/login">Đăng nhập</a></li>
+                <li><a href="/register">Đăng ký</a></li>
+            `;
+                }
+            }
+
+            function logout() {
+                localStorage.removeItem('currentUser');
+                checkLoginStatus(); // Update the UI after logout
+                // Optionally redirect to the home or login page
+                window.location.href = '/'; // Or '/login'
+            }
+
+            // Call checkLoginStatus when the page loads
+            document.addEventListener('DOMContentLoaded', function () {
+                // Initialize map (your existing map code)
+                const mapElement = document.getElementById('branch-map');
+                if (mapElement) {
+                    const map = L.map('branch-map').setView([10.8231, 106.6297], 13);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    }).addTo(map);
+
+                    const branches = [
+                        { name: "Trụ sở chính", address: "123 Nguyễn Huệ, Quận 1", coords: [10.7718, 106.7043], phone: "(028) 3823 4567" },
+                        { name: "Chi nhánh Quận 1", address: "45 Lê Lợi, Quận 1", coords: [10.7756, 106.7004], phone: "(028) 3823 4568" },
+                        { name: "Chi nhánh Quận 3", address: "78 Võ Văn Tần, Quận 3", coords: [10.7865, 106.6896], phone: "(028) 3823 4569" }
+                    ];
+
+                    branches.forEach(branch => {
+                        const marker = L.marker(branch.coords).addTo(map);
+                        marker.bindPopup(`<b>${branch.name}</b><br>${branch.address}<br>ĐT: ${branch.phone}`);
+                    });
+                }
+
+                // Initialize user menu dropdown (your existing dropdown code)
+                const userTrigger = document.querySelector('.user-trigger');
+                if (userTrigger) {
+                    userTrigger.addEventListener('click', function () {
+                        const dropdown = document.querySelector('.dropdown-menu');
+                        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+                    });
+                }
+
+                document.addEventListener('click', function (event) {
+                    const menu = document.querySelector('.user-menu');
+                    if (menu && !menu.contains(event.target)) {
+                        const dropdown = document.querySelector('.dropdown-menu');
+                        if (dropdown) {
+                            dropdown.style.display = 'none';
+                        }
+                    }
+                });
+
+                // Initialize responsive menu (your existing responsive menu code)
+                function updateMenu() {
+                    const nav = document.querySelector('nav');
+                    if (nav) {
+                        if (window.innerWidth < 768) {
+                            nav.style.order = 2;
+                        } else {
+                            nav.style.order = 'unset';
+                        }
+                    }
+                }
+
+                window.addEventListener('resize', updateMenu);
+                updateMenu();
+
+                // Finally, check the login status to update the UI on load
+                checkLoginStatus();
+            });
+        </script>
+        <script>
+            // Dropdown Menu Toggle
+            function toggleDropdown() {
+                const dropdownMenu = document.getElementById('dropdownMenu');
+                dropdownMenu.classList.toggle('show');
+            }
+            // Đóng dropdown khi click bên ngoài
+            window.onclick = function (event) {
+                if (!event.target.closest('.user-menu')) {
+                    const dropdownMenu = document.getElementById('dropdownMenu');
+                    dropdownMenu.classList.remove('show');
+                }
+            }
+            // Cập nhật hàm checkLoginStatus
+            function checkLoginStatus() {
+                const currentUser = localStorage.getItem('currentUser');
+                const userMenu = document.querySelector('.user-menu');
+                const loginLink = document.querySelector('nav ul li a[href="/login"]'); // Assuming you have a login link
+                const registerLink = document.querySelector('nav ul li a[href="/register"]'); // Assuming you have a register link
+                const greetingTextElement = document.querySelector('.greeting-text');
+                const dropdownMenu = document.querySelector('.dropdown-menu');
+
+                if (currentUser) {
+                    // Cập nhật giao diện người dùng đã đăng nhập
+                    userMenu.style.display = 'flex';
+                    if (loginLink) loginLink.style.display = 'none';
+                    if (registerLink) registerLink.style.display = 'none';
+                    try {
+                        const userData = JSON.parse(currentUser);
+                        if (userData && userData.username) {
+                            greetingTextElement.textContent = `Xin chào, ${userData.username}`;
+                            // You might want to update the dropdown menu items based on login status
+                            dropdownMenu.innerHTML = `
+                        <li><a href="/tai-khoan">👤 Tài khoản</a></li>
+                        <li><a href="/quan-ly-don">📋 Quản lý đơn đặt dịch vụ</a></li>
+                        <li><a href="#" id="logout-link">Đăng xuất</a></li>
+                    `;
+                            document.getElementById('logout-link').addEventListener('click', logout);
+                        } else {
+                            greetingTextElement.textContent = 'Xin chào'; // Default greeting if username is missing
+                            dropdownMenu.innerHTML = `
+                        <li><a href="/tai-khoan">👤 Tài khoản</a></li>
+                        <li><a href="/quan-ly-don">📋 Quản lý đơn đặt dịch vụ</a></li>
+                        <li><a href="#" id="logout-link">Đăng xuất</a></li>
+                    `;
+                            document.getElementById('logout-link').addEventListener('click', logout);
+                        }
+                    } catch (e) {
+                        console.error("Error parsing currentUser from localStorage:", e);
+                        greetingTextElement.textContent = 'Xin chào'; // Fallback if parsing fails
+                        dropdownMenu.innerHTML = `
+                    <li><a href="/tai-khoan">👤 Tài khoản</a></li>
+                    <li><a href="/quan-ly-don">📋 Quản lý đơn đặt dịch vụ</a></li>
+                    <li><a href="#" id="logout-link">Đăng xuất</a></li>
+                `;
+                        document.getElementById('logout-link').addEventListener('click', logout);
+                    }
+                } else {
+                    userMenu.style.display = 'none';
+                    if (loginLink) loginLink.style.display = 'flex';
+                    if (registerLink) registerLink.style.display = 'flex';
+                    greetingTextElement.textContent = 'Xin chào'; // Default when not logged in
+                    dropdownMenu.innerHTML = `
+                <li><a href="/login">Đăng nhập</a></li>
+                <li><a href="/register">Đăng ký</a></li>
+            `;
+                }
+            }
+
+            function logout() {
+                localStorage.removeItem('currentUser');
+                checkLoginStatus(); // Update the UI after logout
+                // Optionally redirect to the home or login page
+                window.location.href = '/'; // Or '/login'
+            }
+
+            // Call checkLoginStatus when the page loads
+            document.addEventListener('DOMContentLoaded', function () {
+                // Initialize map (your existing map code)
+                const mapElement = document.getElementById('branch-map');
+                if (mapElement) {
+                    const map = L.map('branch-map').setView([10.8231, 106.6297], 13);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    }).addTo(map);
+
+                    const branches = [
+                        { name: "Trụ sở chính", address: "123 Nguyễn Huệ, Quận 1", coords: [10.7718, 106.7043], phone: "(028) 3823 4567" },
+                        { name: "Chi nhánh Quận 1", address: "45 Lê Lợi, Quận 1", coords: [10.7756, 106.7004], phone: "(028) 3823 4568" },
+                        { name: "Chi nhánh Quận 3", address: "78 Võ Văn Tần, Quận 3", coords: [10.7865, 106.6896], phone: "(028) 3823 4569" }
+                    ];
+
+                    branches.forEach(branch => {
+                        const marker = L.marker(branch.coords).addTo(map);
+                        marker.bindPopup(`<b>${branch.name}</b><br>${branch.address}<br>ĐT: ${branch.phone}`);
+                    });
+                }
+
+                // Initialize user menu dropdown (your existing dropdown code)
+                const userTrigger = document.querySelector('.user-trigger');
+                if (userTrigger) {
+                    userTrigger.addEventListener('click', function () {
+                        const dropdown = document.querySelector('.dropdown-menu');
+                        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+                    });
+                }
+
+                document.addEventListener('click', function (event) {
+                    const menu = document.querySelector('.user-menu');
+                    if (menu && !menu.contains(event.target)) {
+                        const dropdown = document.querySelector('.dropdown-menu');
+                        if (dropdown) {
+                            dropdown.style.display = 'none';
+                        }
+                    }
+                });
+
+                // Initialize responsive menu (your existing responsive menu code)
+                function updateMenu() {
+                    const nav = document.querySelector('nav');
+                    if (nav) {
+                        if (window.innerWidth < 768) {
+                            nav.style.order = 2;
+                        } else {
+                            nav.style.order = 'unset';
+                        }
+                    }
+                }
+
+                window.addEventListener('resize', updateMenu);
+                updateMenu();
+
+                // Finally, check the login status to update the UI on load
+                checkLoginStatus();
+            });
+        </script>
+        <script>
+            // Dropdown Menu Toggle
+            function toggleDropdown() {
+                const dropdownMenu = document.getElementById('dropdownMenu');
+                dropdownMenu.classList.toggle('show');
+            }
+            // Đóng dropdown khi click bên ngoài
+            window.onclick = function (event) {
+                if (!event.target.closest('.user-menu')) {
+                    const dropdownMenu = document.getElementById('dropdownMenu');
+                    dropdownMenu.classList.remove('show');
+                }
+            }
+            // Giữ nguyên phần JavaScript như cũ
+            document.addEventListener('DOMContentLoaded', function () {
+                // Lấy thông tin từ localStorage
+                const customerInfo = JSON.parse(localStorage.getItem('customerInfo'));
+                const serviceInfo = JSON.parse(localStorage.getItem('serviceInfo'));
+
+                // Hiển thị thông tin
+                if (customerInfo) {
+                    document.getElementById('customer-name').textContent = `Họ tên: ${customerInfo.fullname}`;
+                    document.getElementById('customer-phone').textContent = `SĐT: ${customerInfo.phone}`;
+
+                    if (customerInfo.bookingType === 'branch') {
+                        document.getElementById('customer-location').textContent = `Chi nhánh: ${getBranchName(customerInfo.branch)}`;
+                    } else {
+                        document.getElementById('customer-location').textContent = `Địa chỉ: ${customerInfo.address}`;
+                    }
+                }
+
+                if (serviceInfo) {
+                    document.getElementById('artist-name').textContent = `Nghệ sĩ: ${getArtistName(serviceInfo.artist)}`;
+                    document.getElementById('service-type').textContent = `Dịch vụ: ${getServiceName(serviceInfo.service)}`;
+                    document.getElementById('booking-date').textContent = `Ngày: ${formatDate(serviceInfo.date)}`;
+                    document.getElementById('booking-time').textContent = `Giờ: ${serviceInfo.time}`;
+
+                    // Tính toán giá
+                    updatePrices(serviceInfo.service, customerInfo.bookingType);
+                }
+
+                // Áp dụng mã giảm giá
+                document.getElementById('apply-promo').addEventListener('click', function () {
+                    const promoCode = document.getElementById('promo-code').value.trim();
+                    const messageEl = document.getElementById('promo-message');
+
+                    if (!promoCode) {
+                        messageEl.textContent = 'Vui lòng nhập mã giảm giá';
+                        messageEl.style.color = '#dc3545';
+                        return;
+                    }
+
+                    // Kiểm tra mã giảm giá (trong thực tế nên gọi API)
+                    const discount = checkPromoCode(promoCode);
+
+                    if (discount > 0) {
+                        messageEl.textContent = 'Áp dụng mã giảm giá thành công!';
+                        messageEl.style.color = '#28a745';
+                        applyDiscount(discount);
+                    } else {
+                        messageEl.textContent = 'Mã giảm giá không hợp lệ hoặc đã hết hạn';
+                        messageEl.style.color = '#dc3545';
+                        removeDiscount();
+                    }
+                });
+
+                // Xác nhận thanh toán
+                document.getElementById('confirm-payment').addEventListener('click', function () {
+                    // Lưu thông tin thanh toán (trong thực tế nên gọi API)
+                    const paymentInfo = {
+                        promoCode: document.getElementById('promo-code').value,
+                        total: parseFloat(document.getElementById('total-price').textContent.replace(/[^\d]/g, ''))
+                    };
+
+                    localStorage.setItem('paymentInfo', JSON.stringify(paymentInfo));
+
+                    // Chuyển đến trang cảm ơn (hoặc xử lý thanh toán thực tế)
+                    alert('Đặt lịch thành công!');
+                    window.location.href = '/letan/booking';
+                });
+
+                // Helper functions
+                function getBranchName(branchCode) {
+                    const branches = {
+                        'hq': 'Trụ sở chính - 123 Nguyễn Huệ',
+                        'q1': 'Quận 1 - 45 Lê Lợi',
+                        'q3': 'Quận 3 - 78 Võ Văn Tần'
+                    };
+                    return branches[branchCode] || branchCode;
+                }
+
+                function getArtistName(artistCode) {
+                    const artists = {
+                        'artist1': 'Nguyễn Thị Mai',
+                        'artist2': 'Trần Minh Anh',
+                        'artist3': 'Lê Thị Hương'
+                    };
+                    return artists[artistCode] || artistCode;
+                }
+
+                function getServiceName(serviceCode) {
+                    const services = {
+                        'bridal': 'Trang điểm cô dâu',
+                        'party': 'Trang điểm dự tiệc',
+                        'daily': 'Trang điểm nghệ thuật'
+                    };
+                    return services[serviceCode] || serviceCode;
+                }
+
+                function formatDate(dateString) {
+                    const date = new Date(dateString);
+                    return date.toLocaleDateString('vi-VN');
+                }
+
+                function formatCurrency(amount) {
+                    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+                }
+
+                function updatePrices(serviceCode, bookingType) {
+                    let servicePrice = 0;
+                    let transportFee = 0;
+
+                    // Tính giá dịch vụ
+                    switch (serviceCode) {
+                        case 'bridal':
+                            servicePrice = 2000000;
+                            break;
+                        case 'party':
+                            servicePrice = 1200000;
+                            break;
+                        case 'daily':
+                            servicePrice = 800000;
+                            break;
+                        default:
+                            servicePrice = 0;
+                    }
+
+                    // Tính phí di chuyển nếu là dịch vụ tại nhà
+                    if (bookingType === 'home') {
+                        transportFee = 150000;
+                    }
+
+                    const totalPrice = servicePrice + transportFee;
+
+                    // Hiển thị giá
+                    document.getElementById('service-price').textContent = formatCurrency(servicePrice);
+                    document.getElementById('transport-fee').textContent = formatCurrency(transportFee);
+                    document.getElementById('total-price').textContent = formatCurrency(totalPrice);
+
+                    // Lưu giá gốc để tính toán khi áp dụng mã giảm giá
+                    localStorage.setItem('originalTotal', totalPrice);
+                }
+
+                function checkPromoCode(code) {
+                    // Trong thực tế, nên gọi API để kiểm tra mã giảm giá
+                    const validPromos = {
+                        'GIAM10': 0.1,    // Giảm 10%
+                        'GIAM20': 0.2,    // Giảm 20%
+                        'KHACHQUEN': 0.15 // Giảm 15%
+                    };
+
+                    return validPromos[code.toUpperCase()] || 0;
+                }
+
+                function applyDiscount(discountRate) {
+                    const originalTotal = parseFloat(localStorage.getItem('originalTotal'));
+                    const discountAmount = originalTotal * discountRate;
+                    const newTotal = originalTotal - discountAmount;
+
+                    document.getElementById('discount-row').style.display = 'flex';
+                    document.getElementById('discount-amount').textContent = `-${formatCurrency(discountAmount)}`;
+                    document.getElementById('total-price').textContent = formatCurrency(newTotal);
+                }
+
+                function removeDiscount() {
+                    document.getElementById('discount-row').style.display = 'none';
+                    const originalTotal = parseFloat(localStorage.getItem('originalTotal'));
+                    document.getElementById('total-price').textContent = formatCurrency(originalTotal);
+                }
+            });
+        </script>
+</body>
+
+</html>
